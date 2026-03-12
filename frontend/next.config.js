@@ -9,15 +9,15 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   images: {
-    domains: [
-      'images.unsplash.com',
-      'via.placeholder.com',
-      'img.alicdn.com',
-      'ae01.alicdn.com',
-      'img.temu.com',
-      'm.media-amazon.com',
-      'i.ebayimg.com',
-      'placehold.co',
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'via.placeholder.com' },
+      { protocol: 'https', hostname: 'img.alicdn.com' },
+      { protocol: 'https', hostname: 'ae01.alicdn.com' },
+      { protocol: 'https', hostname: 'img.temu.com' },
+      { protocol: 'https', hostname: 'm.media-amazon.com' },
+      { protocol: 'https', hostname: 'i.ebayimg.com' },
+      { protocol: 'https', hostname: 'placehold.co' },
     ],
   },
   typescript: {
