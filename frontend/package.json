@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "15.0.8",
+    "next": "15.5.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@ducanh2912/next-pwa": "^10.2.8",
@@ -27,6 +27,6 @@
     "postcss": "^8.4.0"
   },
   "overrides": {
-    "serialize-javascript": "^6.0.2"
+    "serialize-javascript": "^7.0.3"
   }
 }
