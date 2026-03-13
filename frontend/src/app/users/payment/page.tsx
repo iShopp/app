@@ -72,6 +72,10 @@ export default function PaymentPage() {
         {showForm && (
           <NeonCard className="p-5">
             <h3 className="font-semibold text-white mb-4">Add New Card</h3>
+            {/* TODO: Replace this placeholder form with Stripe Elements (CardElement / CardNumberElement).
+                Card details (number, expiry, CVV) must NEVER be collected in plain DOM inputs.
+                Use Stripe's hosted fields so sensitive data is handled in a PCI-compliant iframe
+                and never touches your application server. See: https://stripe.com/docs/stripe-js */}
             <div className="space-y-3">
               <div>
                 <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Card Number</label>

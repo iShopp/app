@@ -5,15 +5,16 @@ import NeonButton from '@/components/ui/NeonButton';
 import { formatPrice } from '@/lib/utils';
 
 interface BrandPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export default function BrandPage({ params }: BrandPageProps) {
-  const brandName = params.slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+export default async function BrandPage({ params }: BrandPageProps) {
+  const { slug } = await params;
+  const brandName = slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
   const products = Array.from({ length: 8 }, (_, i) => ({
     id: String(i + 1),
-    slug: `${params.slug}-product-${i + 1}`,
+    slug: `${slug}-product-${i + 1}`,
     name: `${brandName} Product ${i + 1}`,
     price: Number((((i * 19 + 20) % 80) + 20).toFixed(2)),
     image: `https://placehold.co/300x300/111118/9d4edd?text=${encodeURIComponent(brandName)}`,

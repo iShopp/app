@@ -4,11 +4,12 @@ import { formatPrice } from '@/lib/utils';
 import Link from 'next/link';
 
 interface SearchPageProps {
-  searchParams: { q?: string };
+  searchParams: Promise<{ q?: string }>;
 }
 
-export default function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q || '';
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const { q } = await searchParams;
+  const query = q || '';
 
   const results = Array.from({ length: query ? 8 : 0 }, (_, i) => ({
     id: String(i + 1),

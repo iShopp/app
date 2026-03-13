@@ -35,7 +35,12 @@ export function useAuth() {
   const signIn = useCallback(async (email: string, password: string) => {
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
-      // Mock auth for now - replace with real API call
+      // FIXME: Mock auth only — NEVER ship to production.
+      // Role is assigned based on email string match which is insecure.
+      // Replace with a real API call that returns the authenticated user's role from the backend.
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('Mock authentication must not be used in production. Connect to the real auth API.');
+      }
       const mockUser: User = {
         id: '1',
         email,

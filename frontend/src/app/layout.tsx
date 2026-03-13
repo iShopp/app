@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
@@ -12,8 +12,6 @@ export const metadata: Metadata = {
   description: 'The Future of Shopping. Curated products from top global marketplaces.',
   keywords: ['shopping', 'marketplace', 'deals', 'temu', 'aliexpress', 'amazon'],
   manifest: '/manifest.json',
-  themeColor: '#00f5ff',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -24,6 +22,13 @@ export const metadata: Metadata = {
     description: 'The Future of Shopping',
     type: 'website',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#00f5ff',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

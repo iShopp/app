@@ -5,23 +5,24 @@ import { SAMPLE_CATEGORIES } from '@/lib/constants';
 import { formatPrice } from '@/lib/utils';
 
 interface CategoryPageProps {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }
 
 export function generateStaticParams() {
   return SAMPLE_CATEGORIES.map((cat) => ({ category: cat.slug }));
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const category = SAMPLE_CATEGORIES.find((c) => c.slug === params.category) || {
-    name: params.category.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category: categorySlug } = await params;
+  const category = SAMPLE_CATEGORIES.find((c) => c.slug === categorySlug) || {
+    name: categorySlug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
     icon: '🛍️',
     productCount: 0,
   };
 
   const products = Array.from({ length: 8 }, (_, i) => ({
     id: String(i + 1),
-    slug: `${params.category}-product-${i + 1}`,
+    slug: `${categorySlug}-product-${i + 1}`,
     name: `${category.name} Item ${i + 1}`,
     price: Number((((i * 17 + 13) % 70) + 10).toFixed(2)),
     originalPrice: Number((((i * 23 + 50) % 100) + 50).toFixed(2)),
