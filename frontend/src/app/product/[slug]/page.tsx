@@ -9,7 +9,7 @@ import Badge from '@/components/ui/Badge';
 import { formatPrice } from '@/lib/utils';
 
 interface ProductPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 const MOCK_PRODUCT = {

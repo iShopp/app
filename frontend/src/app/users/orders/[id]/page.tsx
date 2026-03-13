@@ -42,7 +42,9 @@ const statusColors: Record<string, string> = {
   cancelled: 'text-red-400 bg-red-400/10 border-red-400/30',
 };
 
-export default function OrderDetailPage({ params }: { params: { id: string } }) {
+export default async function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  // id will be used to fetch order from API; static data shown until backend is wired
+  const { id } = await params; // eslint-disable-line @typescript-eslint/no-unused-vars
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center gap-3">

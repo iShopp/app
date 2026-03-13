@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 import NeonCard from '@/components/ui/NeonCard';
 import NeonButton from '@/components/ui/NeonButton';
 
@@ -15,8 +15,9 @@ const mpData: Record<string, {
   ebay: { name: 'eBay', icon: '🔵', color: '#0064d2', apiKeyLabel: 'App ID', apiSecretLabel: 'Cert ID', features: ['Product Import', 'Price Sync', 'Order Sync'] },
 };
 
-export default function MarketplaceConfigPage({ params }: { params: { name: string } }) {
-  const mp = mpData[params.name] || mpData['temu'];
+export default function MarketplaceConfigPage({ params }: { params: Promise<{ name: string }> }) {
+  const { name } = use(params);
+  const mp = mpData[name] || mpData['temu'];
   const [apiKey, setApiKey] = useState('');
   const [apiSecret, setApiSecret] = useState('');
   const [autoSync, setAutoSync] = useState(true);
