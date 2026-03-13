@@ -72,43 +72,19 @@ export default function PaymentPage() {
         {showForm && (
           <NeonCard className="p-5">
             <h3 className="font-semibold text-white mb-4">Add New Card</h3>
-            {/* TODO: Replace this placeholder form with Stripe Elements (CardElement / CardNumberElement).
-                Card details (number, expiry, CVV) must NEVER be collected in plain DOM inputs.
-                Use Stripe's hosted fields so sensitive data is handled in a PCI-compliant iframe
-                and never touches your application server. See: https://stripe.com/docs/stripe-js */}
-            <div className="space-y-3">
-              <div>
-                <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Card Number</label>
-                <input
-                  placeholder="1234 5678 9012 3456"
-                  className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00f5ff] text-sm font-mono"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Expiry</label>
-                  <input
-                    placeholder="MM/YY"
-                    className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00f5ff] text-sm font-mono"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">CVV</label>
-                  <input
-                    placeholder="•••"
-                    className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00f5ff] text-sm font-mono"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Cardholder Name</label>
-                <input
-                  placeholder="Name on card"
-                  className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00f5ff] text-sm"
-                />
-              </div>
-              <NeonButton className="w-full">Save Card</NeonButton>
+            {/* Stripe Elements integration required — card details must NEVER be collected
+                in plain DOM inputs. Replace this placeholder with Stripe's CardElement
+                (or individual CardNumberElement / CardExpiryElement / CardCvcElement)
+                so all sensitive data is handled inside a PCI-compliant Stripe iframe.
+                See: https://stripe.com/docs/stripe-js */}
+            <div className="rounded-lg border border-dashed border-[rgba(0,245,255,0.3)] bg-[rgba(0,245,255,0.04)] p-6 text-center">
+              <p className="text-[#00f5ff] text-sm font-medium mb-1">Stripe Elements will be integrated here</p>
+              <p className="text-gray-500 text-xs">
+                Card fields (number, expiry, CVV) must be collected via Stripe{"'"}s hosted
+                iframe — never via plain DOM inputs — to remain PCI-compliant.
+              </p>
             </div>
+            <NeonButton className="w-full mt-4" disabled>Save Card</NeonButton>
           </NeonCard>
         )}
       </div>

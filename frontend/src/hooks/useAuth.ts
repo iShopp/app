@@ -33,14 +33,14 @@ export function useAuth() {
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
+    // FIXME: Mock auth only — NEVER ship to production.
+    // Role is assigned based on email string match which is insecure.
+    // Replace with a real API call that returns the authenticated user's role from the backend.
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Mock authentication must not be used in production. Connect to the real auth API.');
+    }
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
-      // FIXME: Mock auth only — NEVER ship to production.
-      // Role is assigned based on email string match which is insecure.
-      // Replace with a real API call that returns the authenticated user's role from the backend.
-      if (process.env.NODE_ENV === 'production') {
-        throw new Error('Mock authentication must not be used in production. Connect to the real auth API.');
-      }
       const mockUser: User = {
         id: '1',
         email,
@@ -59,6 +59,11 @@ export function useAuth() {
   }, []);
 
   const signUp = useCallback(async (name: string, email: string, _password: string) => {
+    // FIXME: Mock auth only — NEVER ship to production.
+    // Replace with a real API call.
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Mock authentication must not be used in production. Connect to the real auth API.');
+    }
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
       const mockUser: User = {
