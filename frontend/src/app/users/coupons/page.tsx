@@ -1,3 +1,5 @@
+'use client';
+
 import NeonCard from '@/components/ui/NeonCard';
 import NeonButton from '@/components/ui/NeonButton';
 import { formatDate } from '@/lib/utils';
