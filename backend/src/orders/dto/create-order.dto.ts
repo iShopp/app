@@ -1,7 +1,5 @@
 import {
   IsArray,
-  IsEnum,
-  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -25,11 +23,6 @@ export class OrderItemDto {
   @IsNumber()
   @Min(1)
   quantity: number;
-
-  @ApiProperty()
-  @IsNumber()
-  @Min(0)
-  price: number;
 }
 
 export class CreateOrderDto {

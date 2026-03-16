@@ -23,6 +23,8 @@ export class CouponsController {
   }
 
   @Get('validate')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Validate a coupon code' })
   @ApiQuery({ name: 'code', required: true })
   @ApiQuery({ name: 'subtotal', required: true })

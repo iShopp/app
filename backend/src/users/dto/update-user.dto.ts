@@ -1,11 +1,9 @@
 import {
   IsEmail,
-  IsEnum,
   IsOptional,
   IsString,
 } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { UserRole } from '@prisma/client';
 
 export class UpdateUserDto {
   @ApiPropertyOptional()
@@ -27,9 +25,4 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   phone?: string;
-
-  @ApiPropertyOptional({ enum: UserRole })
-  @IsOptional()
-  @IsEnum(UserRole)
-  role?: UserRole;
 }

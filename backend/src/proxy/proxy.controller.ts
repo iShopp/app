@@ -1,8 +1,11 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ProxyService } from './proxy.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Proxy / Marketplace')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('proxy')
 export class ProxyController {
   constructor(private proxyService: ProxyService) {}

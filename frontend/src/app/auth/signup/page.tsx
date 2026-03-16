@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Eye, EyeOff, Zap, User, Mail, Lock } from 'lucide-react';
 import NeonButton from '@/components/ui/NeonButton';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function SignUpPage() {
+  const { signUp } = useAuth();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,9 +22,13 @@ export default function SignUpPage() {
     if (form.password !== form.confirm) { setError('Passwords do not match'); return; }
     if (form.password.length < 8) { setError('Password must be at least 8 characters'); return; }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    const result = await signUp(form.name, form.email, form.password);
     setLoading(false);
-    window.location.href = '/users';
+    if (result.success) {
+      window.location.href = '/users';
+    } else {
+      setError(result.error ?? 'Sign up failed');
+    }
   };
 
   const inputCls = 'w-full bg-[#0a0a0f] border border-[rgba(0,245,255,0.2)] rounded-lg px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#00f5ff] transition-colors';

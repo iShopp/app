@@ -2,10 +2,12 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
   Patch,
   Query,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -38,14 +40,20 @@ export class UsersController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get user by ID' })
-  findOne(@Param('id') id: string) {
+  @ApiOperation({ summary: 'Get user by ID (own profile or admin)' })
+  findOne(@Param('id') id: string, @Request() req: any) {
+    if (req.user.role !== 'ADMIN' && req.user.id !== id) {
+      throw new ForbiddenException('You can only access your own profile');
+    }
     return this.usersService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Update user' })
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+  @ApiOperation({ summary: 'Update own profile' })
+  update(@Param('id') id: string, @Body() dto: UpdateUserDto, @Request() req: any) {
+    if (req.user.role !== 'ADMIN' && req.user.id !== id) {
+      throw new ForbiddenException('You can only update your own profile');
+    }
     return this.usersService.update(id, dto);
   }
 

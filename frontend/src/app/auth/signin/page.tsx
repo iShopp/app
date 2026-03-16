@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Eye, EyeOff, Zap, Lock, Mail } from 'lucide-react';
 import NeonButton from '@/components/ui/NeonButton';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function SignInPage() {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
@@ -17,9 +19,13 @@ export default function SignInPage() {
     setError('');
     if (!email || !password) { setError('Please fill in all fields'); return; }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
+    const result = await signIn(email, password);
     setLoading(false);
-    window.location.href = '/users';
+    if (result.success) {
+      window.location.href = '/users';
+    } else {
+      setError(result.error ?? 'Sign in failed');
+    }
   };
 
   const inputCls = 'w-full bg-[#0a0a0f] border border-[rgba(0,245,255,0.2)] rounded-lg px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-[#00f5ff] transition-colors';

@@ -45,7 +45,6 @@ export function useCart() {
     } catch {
       // ignore storage errors
     }
-    setCart(calculateCart(items));
   }, []);
 
   const addItem = useCallback(

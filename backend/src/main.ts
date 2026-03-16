@@ -14,12 +14,16 @@ async function bootstrap() {
   app.use(helmet());
   app.use(compression());
 
+  const isProduction = configService.get<string>('NODE_ENV') === 'production';
+  const frontendUrl = configService.get<string>('FRONTEND_URL');
+  const allowedOrigins: string[] = [];
+  if (frontendUrl) allowedOrigins.push(frontendUrl);
+  if (!isProduction) {
+    allowedOrigins.push('http://localhost:3000', 'http://localhost:5173');
+  }
+
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://localhost:5173',
-      process.env.FRONTEND_URL,
-    ].filter(Boolean),
+    origin: allowedOrigins.length > 0 ? allowedOrigins : false,
     credentials: true,
   });
 

@@ -62,6 +62,7 @@ export class PricingService {
         ],
         marketplace: marketplace,
       },
+      orderBy: { createdAt: 'asc' },
     });
 
     let price = basePrice;

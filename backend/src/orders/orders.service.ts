@@ -51,10 +51,25 @@ export class OrdersService {
   }
 
   async create(userId: string, dto: CreateOrderDto) {
-    const subtotal = dto.items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    );
+    // Look up authoritative prices from the database — never trust client-supplied prices
+    const productIds = dto.items.map((item) => item.productId);
+    const products = await this.prisma.product.findMany({
+      where: { id: { in: productIds } },
+      select: { id: true, price: true },
+    });
+
+    if (products.length !== productIds.length) {
+      const foundIds = new Set(products.map((p) => p.id));
+      const missing = productIds.filter((id) => !foundIds.has(id));
+      throw new NotFoundException(`Products not found: ${missing.join(', ')}`);
+    }
+
+    const priceMap = new Map(products.map((p) => [p.id, p.price]));
+
+    const subtotal = dto.items.reduce((sum, item) => {
+      const price = priceMap.get(item.productId)!;
+      return sum + price * item.quantity;
+    }, 0);
     const tax = subtotal * 0.08;
     const shipping = subtotal > 50 ? 0 : 9.99;
     const total = subtotal + tax + shipping;
@@ -72,13 +87,16 @@ export class OrdersService {
         notes: dto.notes,
         shippingAddressId: dto.shippingAddressId,
         items: {
-          create: dto.items.map((item) => ({
-            productId: item.productId,
-            variantId: item.variantId,
-            quantity: item.quantity,
-            price: item.price,
-            total: item.price * item.quantity,
-          })),
+          create: dto.items.map((item) => {
+            const price = priceMap.get(item.productId)!;
+            return {
+              productId: item.productId,
+              variantId: item.variantId,
+              quantity: item.quantity,
+              price,
+              total: price * item.quantity,
+            };
+          }),
         },
         timeline: {
           create: {

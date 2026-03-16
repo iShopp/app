@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
   Param,
   Patch,
@@ -33,9 +34,13 @@ export class OrdersController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get order by ID' })
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(id);
+  @ApiOperation({ summary: 'Get order by ID (own order or admin)' })
+  async findOne(@Param('id') id: string, @Request() req: any) {
+    const order = await this.ordersService.findOne(id);
+    if (req.user.role !== 'ADMIN' && order.userId !== req.user.id) {
+      throw new ForbiddenException('You can only access your own orders');
+    }
+    return order;
   }
 
   @Post()
