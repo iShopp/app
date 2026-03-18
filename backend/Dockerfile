@@ -6,7 +6,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npx prisma generate
+# Disable Prisma telemetry/update checks for a deterministic offline build
+RUN CHECKPOINT_DISABLE=1 npx prisma generate
 RUN npm run build
 
 # ─── Stage 2: Production ────────────────────────────────────────────────────
@@ -18,9 +19,14 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs && \
     adduser  --system --uid 1001 nestjs
 
-COPY --from=builder /app/node_modules ./node_modules
+# Install production dependencies only (no devDeps in the final image)
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
+# Prisma client is generated into node_modules; regenerate against prod deps
+RUN CHECKPOINT_DISABLE=1 npx prisma generate
 
 USER nestjs
 EXPOSE 3001
