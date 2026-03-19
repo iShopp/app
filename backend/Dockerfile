@@ -25,8 +25,9 @@ RUN npm ci --omit=dev
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
-# Prisma client is generated into node_modules; regenerate against prod deps
-RUN CHECKPOINT_DISABLE=1 npx prisma generate
+# Copy the generated Prisma client from the builder (prisma CLI is a devDep
+# and is not available after `npm ci --omit=dev`; generation already ran above)
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 USER nestjs
 EXPOSE 3001
