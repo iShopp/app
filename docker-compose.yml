@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ishop}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+      POSTGRES_DB: ${POSTGRES_DB:-ishop_neon_fx}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-ishop}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ishop}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}@db:5432/${POSTGRES_DB:-ishop_neon_fx}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      TEMU_API_KEY: ${TEMU_API_KEY:-}
+      ALIEXPRESS_APP_KEY: ${ALIEXPRESS_APP_KEY:-}
+      ALIEXPRESS_APP_SECRET: ${ALIEXPRESS_APP_SECRET:-}
+      AMAZON_ACCESS_KEY: ${AMAZON_ACCESS_KEY:-}
+      AMAZON_SECRET_KEY: ${AMAZON_SECRET_KEY:-}
+      AMAZON_PARTNER_TAG: ${AMAZON_PARTNER_TAG:-}
+      EBAY_APP_ID: ${EBAY_APP_ID:-}
+      PORT: 3001
+      NODE_ENV: production
+    ports:
+      - '3001:3001'
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:3001
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - '3000:3000'
+
+volumes:
+  postgres_data:

@@ -4,3 +4,6 @@ frontend/.next/
 backend/dist/
 frontend/tsconfig.tsbuildinfo
 backend/tsconfig.tsbuildinfo
+# PWA build artifacts
+frontend/public/sw.js
+frontend/public/workbox-*.js
