@@ -8,6 +8,17 @@ import { AppModule } from './app.module';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
 async function bootstrap() {
+  // Validate required environment variables before the app fully boots so that
+  // misconfigured deployments fail fast with an actionable error message.
+  const requiredEnvVars = ['JWT_SECRET', 'DATABASE_URL'];
+  const missing = requiredEnvVars.filter((key) => !process.env[key]);
+  if (missing.length > 0) {
+    throw new Error(
+      `Missing required environment variable(s): ${missing.join(', ')}. ` +
+        'Set them before starting the application.',
+    );
+  }
+
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
