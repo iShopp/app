@@ -55,7 +55,6 @@ jobs:
     name: Deploy backend (Docker → GHCR)
     runs-on: ubuntu-latest
     environment: production
-    needs: []
     permissions:
       contents: read
       packages: write
