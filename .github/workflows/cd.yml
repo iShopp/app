@@ -89,11 +89,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Compute lowercase image name
+        run: echo "IMAGE=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+
       - name: Build & push Docker image
         uses: docker/build-push-action@v5
         with:
           context: backend
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/backend:latest
-            ghcr.io/${{ github.repository }}/backend:${{ github.sha }}
+            ghcr.io/${{ env.IMAGE }}/backend:latest
+            ghcr.io/${{ env.IMAGE }}/backend:${{ github.sha }}
