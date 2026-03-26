@@ -11,6 +11,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
+  // Validate required environment variables after ConfigModule has loaded
+  // (including values from a local .env file) so that dev/test setups work
+  // without exporting vars in the shell.
+  const requiredEnvVars = ['JWT_SECRET', 'DATABASE_URL'];
+  const missing = requiredEnvVars.filter((key) => !configService.get<string>(key));
+  if (missing.length > 0) {
+    throw new Error(
+      `Missing required environment variable(s): ${missing.join(', ')}. ` +
+        'Set them before starting the application.',
+    );
+  }
+
   app.use(helmet());
   app.use(compression());
 
@@ -53,4 +65,7 @@ async function bootstrap() {
   console.log(`Swagger docs: http://localhost:${port}/api/docs`);
 }
 
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('Fatal error during application startup:', err);
+  process.exit(1);
+});
