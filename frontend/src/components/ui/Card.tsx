@@ -9,9 +9,9 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const glowClasses = {
-  cyan: 'hover:shadow-sm hover:border-slate-500',
-  magenta: 'hover:shadow-sm hover:border-slate-500',
-  purple: 'hover:shadow-sm hover:border-slate-500',
+  cyan: 'hover:shadow-[0_8px_20px_rgba(56,189,248,0.12)] hover:border-sky-400/50',
+  magenta: 'hover:shadow-[0_8px_20px_rgba(217,70,239,0.12)] hover:border-fuchsia-400/50',
+  purple: 'hover:shadow-[0_8px_20px_rgba(168,85,247,0.12)] hover:border-violet-400/50',
 };
 
 export default function Card({ className, glow = true, glowColor = 'cyan', children, ...props }: CardProps) {

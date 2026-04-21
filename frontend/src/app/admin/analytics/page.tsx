@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
 
 const periods = ['7d', '30d', '90d'];
 

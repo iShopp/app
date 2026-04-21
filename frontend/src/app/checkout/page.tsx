@@ -18,13 +18,20 @@ const subtotal = ORDER_ITEMS.reduce((s, i) => s + i.price * i.qty, 0);
 const shipping = 0;
 const total = subtotal + shipping;
 
+function redactEmail(email: string): string {
+  const [local = '', domain = 'unknown'] = email.split('@');
+  if (!local) return `anonymous@${domain}`;
+  if (local.length <= 2) return `${local[0] ?? '*'}*@${domain}`;
+  return `${local.slice(0, 2)}***@${domain}`;
+}
+
 export default function CheckoutPage() {
   const [done, setDone] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
   const handleOrder = async (values: Record<string, string>) => {
     setSubmitError('');
-    enterpriseLog({ type: 'session_key_usage', message: `Checkout by ${values.email}` });
+    enterpriseLog({ type: 'session_key_usage', message: `Checkout by ${redactEmail(values.email)}` });
     logRpcRetry('checkout.submit', 0);
 
     await new Promise((r) => setTimeout(r, 600));
@@ -65,7 +72,7 @@ export default function CheckoutPage() {
           {ORDER_ITEMS.map((item, i) => (
             <div key={i} className="flex justify-between text-slate-400">
               <span>{item.name} ×{item.qty}</span>
-              <span>{formatPrice(item.price)}</span>
+              <span>{formatPrice(item.price * item.qty)}</span>
             </div>
           ))}
         </div>

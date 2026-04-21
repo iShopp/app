@@ -3,7 +3,6 @@ import { ArrowRight, ShieldCheck, Truck, CreditCard } from 'lucide-react';
 import CategoryNav from '@/components/layout/CategoryNav';
 import ProductCard from '@/components/ui/ProductCard';
 import TrustBadge from '@/components/ui/TrustBadge';
-import Button from '@/components/ui/Button';
 import { SAMPLE_CATEGORIES } from '@/lib/constants';
 import type { Product } from '@/types';
 
@@ -23,8 +22,18 @@ export default function HomePage() {
           <h1 className="mb-3 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Shop trusted global products in one place</h1>
           <p className="mb-6 max-w-2xl text-slate-600">Discover curated offers from Temu, AliExpress, Amazon and eBay with verified reviews, secure checkout and reliable delivery tracking.</p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/shop"><Button size="lg">Start shopping <ArrowRight className="h-4 w-4" /></Button></Link>
-            <Link href="/deals"><Button size="lg" variant="outline">Today&apos;s deals</Button></Link>
+            <Link
+              href="/shop"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-orange-600"
+            >
+              Start shopping <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/deals"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-7 py-3.5 text-base font-medium text-slate-700 transition-colors hover:bg-slate-50"
+            >
+              Today&apos;s deals
+            </Link>
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             <TrustBadge type="secure" label="Secure checkout" />

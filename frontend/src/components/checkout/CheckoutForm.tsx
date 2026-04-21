@@ -2,23 +2,22 @@
 
 import { useMemo, useState } from 'react';
 import Button from '@/components/ui/Button';
-import { isValidEmail, isValidCardNumber, isValidExpiry } from '@/lib/validation';
+import { isValidEmail } from '@/lib/validation';
 
 interface CheckoutFormProps {
   onSubmit: (values: Record<string, string>) => Promise<void> | void;
 }
 
 export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
-  const [values, setValues] = useState({ firstName: '', lastName: '', email: '', address: '', city: '', zip: '', cardNumber: '', expiry: '', cvv: '' });
+  const [values, setValues] = useState({ firstName: '', lastName: '', email: '', address: '', city: '', zip: '' });
+  const [paymentConsent, setPaymentConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const errors = useMemo(() => ({
     email: !isValidEmail(values.email) ? 'Enter a valid email' : '',
-    cardNumber: !isValidCardNumber(values.cardNumber) ? 'Please enter a valid card number' : '',
-    expiry: !isValidExpiry(values.expiry) ? 'Use MM/YY and a non-expired date' : '',
-    cvv: !/^\d{3,4}$/.test(values.cvv) ? 'CVV must be 3-4 digits' : '',
-  }), [values]);
+    paymentConsent: !paymentConsent ? 'Confirm test payment to continue' : '',
+  }), [values, paymentConsent]);
 
   const hasError = Object.values(errors).some(Boolean);
 
@@ -49,14 +48,19 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
         <input id="city" name="city" aria-label="City" className={input} placeholder="City" value={values.city} onChange={(e) => setValues((v) => ({ ...v, city: e.target.value }))} />
         <input id="zip" name="zip" aria-label="ZIP" className={input} placeholder="ZIP" value={values.zip} onChange={(e) => setValues((v) => ({ ...v, zip: e.target.value }))} />
       </div>
-      <input id="cardNumber" name="cardNumber" aria-label="Card Number" className={input} placeholder="Card Number" value={values.cardNumber} onChange={(e) => setValues((v) => ({ ...v, cardNumber: e.target.value }))} />
-      {submitted && errors.cardNumber && <p className="text-xs text-red-600">{errors.cardNumber}</p>}
-      <div className="grid grid-cols-2 gap-3">
-        <input id="expiry" name="expiry" aria-label="Expiry date" className={input} placeholder="MM/YY" value={values.expiry} onChange={(e) => setValues((v) => ({ ...v, expiry: e.target.value }))} />
-        <input id="cvv" name="cvv" aria-label="CVV" className={input} placeholder="CVV" value={values.cvv} onChange={(e) => setValues((v) => ({ ...v, cvv: e.target.value }))} />
+      <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-800">
+        Payment card fields are intentionally omitted in this demo build. Use provider-hosted fields (for example, Stripe Elements) before production.
       </div>
-      {submitted && errors.expiry && <p className="text-xs text-red-600">{errors.expiry}</p>}
-      {submitted && errors.cvv && <p className="text-xs text-red-600">{errors.cvv}</p>}
+      <label className="flex items-start gap-2 text-sm text-slate-700">
+        <input
+          type="checkbox"
+          checked={paymentConsent}
+          onChange={(e) => setPaymentConsent(e.target.checked)}
+          className="mt-0.5"
+        />
+        I confirm this is a test checkout flow and no real payment data is collected.
+      </label>
+      {submitted && errors.paymentConsent && <p className="text-xs text-red-600">{errors.paymentConsent}</p>}
       <Button type="submit" loading={loading} className="w-full">Place order</Button>
     </form>
   );

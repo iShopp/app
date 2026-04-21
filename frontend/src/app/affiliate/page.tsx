@@ -1,5 +1,4 @@
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
 
 const kpis = [

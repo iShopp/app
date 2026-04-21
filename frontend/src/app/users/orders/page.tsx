@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
+import Link from 'next/link';
 
 const allOrders = [
   { id: 'ORD-001', date: '2024-01-05', items: [{ name: 'Wireless Headphones', img: '🎧' }], total: 89.99, status: 'delivered' },
@@ -83,16 +83,22 @@ export default function OrdersPage() {
                     {order.status}
                   </span>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <a href={`/users/orders/${order.id}`}>
-                    <Button size="sm" variant="outline">View</Button>
-                  </a>
-                  {order.status === 'shipped' && (
-                    <a href="/users/track">
-                      <Button size="sm">Track</Button>
-                    </a>
-                  )}
-                </div>
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href={`/users/orders/${order.id}`}
+                      className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-600 bg-slate-900 px-3 py-1.5 text-sm font-medium text-slate-100 transition-colors hover:bg-slate-800"
+                    >
+                      View
+                    </Link>
+                    {order.status === 'shipped' && (
+                      <Link
+                        href="/users/track"
+                        className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-orange-600"
+                      >
+                        Track
+                      </Link>
+                    )}
+                  </div>
               </div>
             </div>
           </Card>
