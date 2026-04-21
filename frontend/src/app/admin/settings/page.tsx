@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const tabs = ['General', 'Email', 'Payments', 'Shipping', 'SEO'];
 
@@ -78,7 +78,7 @@ export default function AdminSettingsPage() {
       </div>
 
       <form onSubmit={handleSave}>
-        <NeonCard className="p-6">
+        <Card className="p-6">
           {activeTab === 'General' && (
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-white">General Settings</h2>
@@ -117,7 +117,7 @@ export default function AdminSettingsPage() {
                 <Field label="From Name" value={email.fromName} onChange={(v) => setEmail((p) => ({ ...p, fromName: v }))} />
                 <Field label="From Email" value={email.fromEmail} onChange={(v) => setEmail((p) => ({ ...p, fromEmail: v }))} type="email" />
               </div>
-              <NeonButton type="button" variant="outline" size="sm">Send Test Email</NeonButton>
+              <Button type="button" variant="outline" size="sm">Send Test Email</Button>
             </div>
           )}
 
@@ -168,11 +168,11 @@ export default function AdminSettingsPage() {
           )}
 
           <div className="mt-6">
-            <NeonButton type="submit" className="w-full">
+            <Button type="submit" className="w-full">
               {saved ? '✓ Settings Saved!' : 'Save Settings'}
-            </NeonButton>
+            </Button>
           </div>
-        </NeonCard>
+        </Card>
       </form>
     </div>
   );

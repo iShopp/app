@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const initialBrands = [
   { id: 1, name: 'Sony', slug: 'sony', logo: '🎵', products: 342, active: true },
@@ -44,13 +44,13 @@ export default function BrandsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Brands</h1>
-        <NeonButton onClick={() => { setShowForm(!showForm); setEditId(null); setForm({ name: '', slug: '', logo: '', active: true }); }}>
+        <Button onClick={() => { setShowForm(!showForm); setEditId(null); setForm({ name: '', slug: '', logo: '', active: true }); }}>
           {showForm && !editId ? 'Cancel' : '+ Add Brand'}
-        </NeonButton>
+        </Button>
       </div>
 
       {showForm && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">{editId ? 'Edit Brand' : 'New Brand'}</h2>
           <form onSubmit={submit} className="grid sm:grid-cols-2 gap-4">
             {[
@@ -74,13 +74,13 @@ export default function BrandsPage() {
               <label htmlFor="brandActive" className="text-sm text-gray-300">Active</label>
             </div>
             <div className="sm:col-span-2">
-              <NeonButton type="submit" className="w-full">{editId ? 'Update Brand' : 'Create Brand'}</NeonButton>
+              <Button type="submit" className="w-full">{editId ? 'Update Brand' : 'Create Brand'}</Button>
             </div>
           </form>
-        </NeonCard>
+        </Card>
       )}
 
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -117,7 +117,7 @@ export default function BrandsPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

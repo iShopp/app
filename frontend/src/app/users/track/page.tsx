@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const mockTracking = {
   trackingNumber: 'TRK9281736450',
@@ -36,7 +36,7 @@ export default function TrackPage() {
       <h1 className="text-2xl font-bold text-white">Track Shipment</h1>
 
       {/* Input */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <p className="text-gray-400 text-sm mb-4">Enter your tracking number to get real-time updates on your shipment.</p>
         <div className="flex gap-3">
           <input
@@ -47,15 +47,15 @@ export default function TrackPage() {
             placeholder="e.g. TRK9281736450"
             className="flex-1 bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#00f5ff] transition-colors"
           />
-          <NeonButton onClick={handleTrack} disabled={loading}>
+          <Button onClick={handleTrack} disabled={loading}>
             {loading ? 'Tracking...' : 'Track'}
-          </NeonButton>
+          </Button>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Result */}
       {result && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
             <div>
               <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Tracking Number</p>
@@ -93,7 +93,7 @@ export default function TrackPage() {
               ))}
             </div>
           </div>
-        </NeonCard>
+        </Card>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 import KPICard from '@/components/admin/KPICard';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
-import { formatPrice, formatDate } from '@/lib/utils';
+import Link from 'next/link';
+import Card from '@/components/ui/Card';
+import { cn, formatPrice, formatDate } from '@/lib/utils';
 
 import { DollarSign, ShoppingBag, Package, Users } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -36,6 +36,10 @@ const statusColors: Record<string, string> = {
   cancelled: 'text-red-400 bg-red-400/10',
 };
 
+const quickActionBaseClass = 'inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400/30';
+const quickActionPrimaryClass = cn(quickActionBaseClass, 'bg-orange-500 text-white hover:bg-orange-600');
+const quickActionOutlineClass = cn(quickActionBaseClass, 'border border-slate-600 bg-slate-900 text-slate-100 hover:bg-slate-800');
+
 export default function AdminDashboard() {
   return (
     <div className="space-y-6">
@@ -54,7 +58,7 @@ export default function AdminDashboard() {
       {/* Recent Orders & Marketplace Sync */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Orders Table */}
-        <NeonCard className="p-6 lg:col-span-2">
+        <Card className="p-6 lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
             <a href="/admin/orders" className="text-[#00f5ff] text-sm hover:underline">View all →</a>
@@ -85,10 +89,10 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           </div>
-        </NeonCard>
+        </Card>
 
         {/* Marketplace Sync */}
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Marketplace Sync</h2>
           <div className="space-y-3">
             {marketplaces.map((mp) => (
@@ -106,19 +110,19 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-        </NeonCard>
+        </Card>
       </div>
 
       {/* Quick Actions */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
-          <a href="/admin/products/import"><NeonButton>📥 Import Products</NeonButton></a>
-          <a href="/admin/pricing"><NeonButton variant="outline">💲 Sync Prices</NeonButton></a>
-          <a href="/admin/analytics"><NeonButton variant="outline">📊 View Analytics</NeonButton></a>
-          <a href="/admin/automation"><NeonButton variant="outline">⚙️ Automation</NeonButton></a>
+          <Link href="/admin/products/import" className={quickActionPrimaryClass}>📥 Import Products</Link>
+          <Link href="/admin/pricing" className={quickActionOutlineClass}>💲 Sync Prices</Link>
+          <Link href="/admin/analytics" className={quickActionOutlineClass}>📊 View Analytics</Link>
+          <Link href="/admin/automation" className={quickActionOutlineClass}>⚙️ Automation</Link>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

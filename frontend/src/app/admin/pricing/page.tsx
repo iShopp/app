@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const rules = [
   { id: 1, marketplace: 'Temu', type: 'percent', value: 35, category: 'All', active: true },
@@ -40,15 +40,15 @@ export default function PricingPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Pricing & Margins</h1>
-        <NeonButton onClick={() => setShowForm(!showForm)}>
+        <Button onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : '+ Add Rule'}
-        </NeonButton>
+        </Button>
       </div>
 
       {/* Margin Overview Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {mpOverview.map((mp) => (
-          <NeonCard key={mp.name} className="p-4">
+          <Card key={mp.name} className="p-4">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xl">{mp.icon}</span>
               <span className="text-white font-medium text-sm">{mp.name}</span>
@@ -59,13 +59,13 @@ export default function PricingPage() {
               <p className="text-xs text-gray-500">{mp.products.toLocaleString()} products</p>
               <p className="text-xs text-[#39ff14]">{mp.revenue} revenue</p>
             </div>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
       {/* Add Rule Form */}
       {showForm && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">New Pricing Rule</h2>
           <form onSubmit={handleAdd} className="grid sm:grid-cols-4 gap-4">
             <div>
@@ -94,14 +94,14 @@ export default function PricingPage() {
                 className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#00f5ff]" />
             </div>
             <div className="sm:col-span-4">
-              <NeonButton type="submit" className="w-full">Add Rule</NeonButton>
+              <Button type="submit" className="w-full">Add Rule</Button>
             </div>
           </form>
-        </NeonCard>
+        </Card>
       )}
 
       {/* Rules Table */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="p-4 border-b border-[rgba(0,245,255,0.1)]">
           <h2 className="text-lg font-semibold text-white">Active Rules</h2>
         </div>
@@ -134,7 +134,7 @@ export default function PricingPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

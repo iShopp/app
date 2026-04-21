@@ -5,8 +5,8 @@ import Footer from '@/components/layout/Footer';
 import MobileNav from '@/components/layout/MobileNav';
 
 export const metadata: Metadata = {
-  title: 'iSHOP - NEON FX Marketplace',
-  description: 'The Future of Shopping. Curated products from top global marketplaces.',
+  title: 'iSHOP Marketplace',
+  description: 'Professional multi-marketplace shopping platform with trusted checkout and fast shipping.',
   keywords: ['shopping', 'marketplace', 'deals', 'temu', 'aliexpress', 'amazon'],
   manifest: '/manifest.json',
   appleWebApp: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'iSHOP',
   },
   openGraph: {
-    title: 'iSHOP - NEON FX Marketplace',
+    title: 'iSHOP Marketplace',
     description: 'The Future of Shopping',
     type: 'website',
   },
@@ -25,17 +25,17 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#00f5ff',
+  themeColor: '#f97316',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body className="bg-[#0a0a0f] text-white min-h-screen">
+      <body className="bg-slate-900 text-slate-100 min-h-screen">
         <Navbar />
         <main className="pt-16 pb-16 md:pb-0">
           {children}

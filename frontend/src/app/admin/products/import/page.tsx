@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const marketplaces = [
   { id: 'temu', name: 'Temu', icon: '🛒', color: '#ff6900', desc: 'Import trending products from Temu' },
@@ -68,7 +68,7 @@ export default function ImportProductsPage() {
       </div>
 
       {/* Import Form */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Import by URL or Keyword</h2>
         <div className="space-y-4">
           <div>
@@ -116,15 +116,15 @@ export default function ImportProductsPage() {
             </div>
           </div>
 
-          <NeonButton className="w-full" onClick={handleImport} disabled={importing}>
+          <Button className="w-full" onClick={handleImport} disabled={importing}>
             {importing ? 'Importing...' : '📥 Start Import'}
-          </NeonButton>
+          </Button>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Progress */}
       {(importing || done) && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">
             {done ? '✅ Import Complete' : '⚙️ Importing Products...'}
           </h2>
@@ -137,7 +137,7 @@ export default function ImportProductsPage() {
           <p className="text-gray-400 text-sm">
             {done ? `Successfully imported products from ${marketplaces.find((m) => m.id === selected)?.name}.` : `Processing... ${progress}%`}
           </p>
-        </NeonCard>
+        </Card>
       )}
     </div>
   );

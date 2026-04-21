@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
 
 const payoutHistory = [
@@ -44,9 +44,9 @@ export default function EarningsPage() {
           <div className="text-right">
             <p className="text-gray-400 text-xs mb-1">Min payout threshold: ${threshold}</p>
             {balance >= threshold ? (
-              <NeonButton onClick={() => setShowRequest(!showRequest)}>
+              <Button onClick={() => setShowRequest(!showRequest)}>
                 {showRequest ? 'Cancel' : '💸 Request Payout'}
-              </NeonButton>
+              </Button>
             ) : (
               <p className="text-yellow-400 text-sm">Need ${(threshold - balance).toFixed(2)} more to withdraw</p>
             )}
@@ -55,14 +55,14 @@ export default function EarningsPage() {
 
         {requested && (
           <div className="mt-4 p-3 bg-green-400/10 border border-green-400/30 rounded-lg">
-            <p className="text-green-400 text-sm">✓ Payout request submitted! You'll receive payment within 3-5 business days.</p>
+            <p className="text-green-400 text-sm">✓ Payout request submitted! You&apos;ll receive payment within 3-5 business days.</p>
           </div>
         )}
       </div>
 
       {/* Request Form */}
       {showRequest && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Request Payout</h2>
           <form onSubmit={handleRequest} className="space-y-4">
             <div>
@@ -88,9 +88,9 @@ export default function EarningsPage() {
                 <option>Crypto (USDT)</option>
               </select>
             </div>
-            <NeonButton type="submit" className="w-full">Submit Request</NeonButton>
+            <Button type="submit" className="w-full">Submit Request</Button>
           </form>
-        </NeonCard>
+        </Card>
       )}
 
       {/* Lifetime Stats */}
@@ -100,15 +100,15 @@ export default function EarningsPage() {
           { label: 'Total Paid Out', value: '$1,252.10', color: '#39ff14' },
           { label: 'Avg. Monthly', value: '$118.38', color: '#9d4edd' },
         ].map((s) => (
-          <NeonCard key={s.label} className="p-4 text-center">
+          <Card key={s.label} className="p-4 text-center">
             <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
             <p className="text-gray-400 text-xs mt-1">{s.label}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
       {/* Payout History */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="p-4 border-b border-[rgba(0,245,255,0.1)]">
           <h2 className="text-lg font-semibold text-white">Payout History</h2>
         </div>
@@ -136,7 +136,7 @@ export default function EarningsPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

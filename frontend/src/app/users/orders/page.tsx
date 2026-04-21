@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
 import { formatPrice, formatDate } from '@/lib/utils';
+import Link from 'next/link';
 
 const allOrders = [
   { id: 'ORD-001', date: '2024-01-05', items: [{ name: 'Wireless Headphones', img: '🎧' }], total: 89.99, status: 'delivered' },
@@ -52,12 +52,12 @@ export default function OrdersPage() {
       {/* Order Cards */}
       <div className="space-y-4">
         {filtered.length === 0 && (
-          <NeonCard className="p-8 text-center">
+          <Card className="p-8 text-center">
             <p className="text-gray-400">No orders found.</p>
-          </NeonCard>
+          </Card>
         )}
         {filtered.map((order) => (
-          <NeonCard key={order.id} className="p-5">
+          <Card key={order.id} className="p-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2">
@@ -83,19 +83,25 @@ export default function OrdersPage() {
                     {order.status}
                   </span>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <a href={`/users/orders/${order.id}`}>
-                    <NeonButton size="sm" variant="outline">View</NeonButton>
-                  </a>
-                  {order.status === 'shipped' && (
-                    <a href="/users/track">
-                      <NeonButton size="sm">Track</NeonButton>
-                    </a>
-                  )}
-                </div>
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href={`/users/orders/${order.id}`}
+                      className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-600 bg-slate-900 px-3 py-1.5 text-sm font-medium text-slate-100 transition-colors hover:bg-slate-800"
+                    >
+                      View
+                    </Link>
+                    {order.status === 'shipped' && (
+                      <Link
+                        href="/users/track"
+                        className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-orange-600"
+                      >
+                        Track
+                      </Link>
+                    )}
+                  </div>
               </div>
             </div>
-          </NeonCard>
+          </Card>
         ))}
       </div>
     </div>

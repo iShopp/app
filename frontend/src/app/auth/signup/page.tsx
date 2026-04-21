@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Eye, EyeOff, Zap, User, Mail, Lock } from 'lucide-react';
-import NeonButton from '@/components/ui/NeonButton';
+import Button from '@/components/ui/Button';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function SignUpPage() {
@@ -81,7 +81,7 @@ export default function SignUpPage() {
               </div>
             </div>
             {error && <p className="text-red-400 text-sm">{error}</p>}
-            <NeonButton variant="primary" size="lg" className="w-full" type="submit" loading={loading}>Create Account</NeonButton>
+            <Button variant="primary" size="lg" className="w-full" type="submit" loading={loading}>Create Account</Button>
           </form>
 
           <p className="text-center text-gray-600 text-xs mt-5">

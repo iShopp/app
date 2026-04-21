@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
 import { formatPrice, formatDate } from '@/lib/utils';
 
 const allOrders = [
@@ -42,7 +41,7 @@ export default function AdminOrdersPage() {
         ))}
       </div>
 
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -77,7 +76,7 @@ export default function AdminOrdersPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { DollarSign, Users, TrendingUp, Share2, ArrowRight, Check } from 'lucide-react';
-import NeonButton from '@/components/ui/NeonButton';
-import NeonCard from '@/components/ui/NeonCard';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
 
 const FEATURES = [
   { icon: DollarSign, title: 'Earn 10% Commission', desc: 'On every sale referred through your unique link', color: '#39ff14' },
@@ -42,10 +42,10 @@ export default function AffiliatesPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/auth/signup">
-              <NeonButton variant="secondary" size="lg">Join Now — It&apos;s Free <ArrowRight className="h-5 w-5" /></NeonButton>
+              <Button variant="secondary" size="lg">Join Now — It&apos;s Free <ArrowRight className="h-5 w-5" /></Button>
             </Link>
             <Link href="/affiliate">
-              <NeonButton variant="outline" size="lg">Affiliate Dashboard</NeonButton>
+              <Button variant="outline" size="lg">Affiliate Dashboard</Button>
             </Link>
           </div>
         </div>
@@ -55,13 +55,13 @@ export default function AffiliatesPage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {FEATURES.map(({ icon: Icon, title, desc, color }) => (
-            <NeonCard key={title} className="p-5">
+            <Card key={title} className="p-5">
               <div className="p-3 rounded-xl mb-4 w-fit" style={{ backgroundColor: color + '15' }}>
                 <Icon className="h-6 w-6" style={{ color }} />
               </div>
               <h3 className="text-white font-semibold mb-1">{title}</h3>
               <p className="text-gray-500 text-sm">{desc}</p>
-            </NeonCard>
+            </Card>
           ))}
         </div>
       </section>
@@ -71,7 +71,7 @@ export default function AffiliatesPage() {
         <h2 className="text-3xl font-bold text-white text-center mb-10">Commission <span className="text-[#ff00ff]">Tiers</span></h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {TIERS.map((tier, i) => (
-            <NeonCard
+            <Card
               key={tier.name}
               glowColor={getTierGlow(i)}
               className={`p-6 text-center ${i === 1 ? 'border-[rgba(255,0,255,0.3)] relative' : ''}`}
@@ -84,20 +84,20 @@ export default function AffiliatesPage() {
               <p className="text-gray-600 text-xs flex items-center justify-center gap-1">
                 <Check className="h-3 w-3" /> {tier.requirement}
               </p>
-            </NeonCard>
+            </Card>
           ))}
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
-        <NeonCard glowColor="magenta" className="p-10">
+        <Card glowColor="magenta" className="p-10">
           <h2 className="text-3xl font-bold text-white mb-3">Start Earning Today</h2>
           <p className="text-gray-500 mb-8">Sign up in 2 minutes. No experience required.</p>
           <Link href="/auth/signup">
-            <NeonButton variant="secondary" size="lg">Create Affiliate Account</NeonButton>
+            <Button variant="secondary" size="lg">Create Affiliate Account</Button>
           </Link>
-        </NeonCard>
+        </Card>
       </section>
     </div>
   );

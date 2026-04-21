@@ -1,131 +1,98 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, Trash2, Plus, Minus, Tag, ArrowRight } from 'lucide-react';
-import NeonButton from '@/components/ui/NeonButton';
-import NeonCard from '@/components/ui/NeonCard';
+import { ShoppingCart, Trash2, Plus, Minus } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
+import CartDrawer from '@/components/cart/CartDrawer';
+import { usePermissionlessRepair } from '@/hooks/usePermissionlessRepair';
 import { formatPrice } from '@/lib/utils';
 
 const MOCK_CART_ITEMS = [
-  { id: '1', name: 'Wireless Earbuds Pro X', price: 29.99, originalPrice: 79.99, quantity: 1, image: 'https://placehold.co/100x100/111118/00f5ff?text=Earbuds', variant: 'Black', marketplace: 'temu' },
-  { id: '2', name: 'Smart RGB LED Strip 5m', price: 15.99, originalPrice: 35.99, quantity: 2, image: 'https://placehold.co/100x100/111118/ff00ff?text=LED', variant: null, marketplace: 'aliexpress' },
+  { id: '1', name: 'Wireless Earbuds Pro X', price: 29.99, quantity: 1 },
+  { id: '2', name: 'Smart LED Strip 5m', price: 15.99, quantity: 2 },
 ];
 
 export default function CartPage() {
   const [items, setItems] = useState(MOCK_CART_ITEMS);
-  const [coupon, setCoupon] = useState('');
-  const [couponApplied, setCouponApplied] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const repair = usePermissionlessRepair<(typeof MOCK_CART_ITEMS)[number]>();
 
   const updateQty = (id: string, delta: number) => {
-    setItems((prev) => prev.map((item) => item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item).filter(Boolean));
+    setItems((prev) => prev.map((item) => item.id === id ? repair(item, { quantity: Math.max(1, item.quantity + delta) }) : item));
   };
 
-  const remove = (id: string) => setItems((prev) => prev.filter((i) => i.id !== id));
-
-  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  const discount = couponApplied ? subtotal * 0.1 : 0;
-  const shipping = subtotal > 50 ? 0 : 5.99;
-  const total = subtotal - discount + shipping;
+  const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
+  const drawerItems = useMemo(
+    () => items.map((item) => ({ id: item.id, product: { name: item.name }, quantity: item.quantity, price: item.price })),
+    [items]
+  );
 
   if (items.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <ShoppingCart className="h-20 w-20 text-[rgba(0,245,255,0.15)] mx-auto mb-6" />
-        <h2 className="text-2xl font-bold text-white mb-3">Your cart is empty</h2>
-        <p className="text-gray-500 mb-8">Add some neon-lit products to get started!</p>
-        <Link href="/shop"><NeonButton variant="primary" size="lg">Start Shopping</NeonButton></Link>
+      <div className="mx-auto max-w-7xl px-4 py-20 text-center">
+        <ShoppingCart className="mx-auto mb-6 h-20 w-20 text-slate-300" />
+        <h2 className="mb-3 text-2xl font-bold text-slate-100">Your cart is empty</h2>
+        <p className="mb-8 text-slate-400">Add products to continue.</p>
+        <Link
+          href="/shop"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+        >
+          Start Shopping
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-        <ShoppingCart className="h-7 w-7 text-[#00f5ff]" />
-        Shopping Cart <span className="text-gray-500 text-xl font-normal">({items.length} items)</span>
-      </h1>
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-slate-100">Shopping Cart</h1>
+        <Button variant="outline" size="sm" onClick={() => setDrawerOpen(true)}>Open cart drawer</Button>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Items */}
-        <div className="lg:col-span-2 space-y-4">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="space-y-4 lg:col-span-2">
           {items.map((item) => (
-            <NeonCard key={item.id} className="p-4 flex items-center gap-4">
-              <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded-lg bg-[#0d0d15]" />
-              <div className="flex-1 min-w-0">
-                <h3 className="text-white font-medium text-sm line-clamp-2 mb-1">{item.name}</h3>
-                {item.variant && <p className="text-gray-500 text-xs mb-2">Variant: {item.variant}</p>}
-                <span className="text-[10px] text-white font-bold px-2 py-0.5 rounded-full uppercase" style={{ backgroundColor: item.marketplace === 'temu' ? '#ff6900cc' : item.marketplace === 'aliexpress' ? '#ff4747cc' : '#ff9900cc' }}>
-                  {item.marketplace}
-                </span>
+            <Card key={item.id} className="flex items-center gap-4 p-4">
+              <div className="h-20 w-20 rounded-lg bg-slate-800" />
+              <div className="flex-1">
+                <h3 className="text-sm font-medium text-slate-100">{item.name}</h3>
               </div>
-              <div className="flex flex-col items-end gap-3 shrink-0">
-                <div className="flex items-center border border-[rgba(0,245,255,0.2)] rounded-lg overflow-hidden">
-                  <button onClick={() => updateQty(item.id, -1)} className="p-1.5 text-gray-400 hover:text-white hover:bg-[rgba(0,245,255,0.08)] transition-colors">
-                    <Minus className="h-3.5 w-3.5" />
-                  </button>
-                  <span className="px-3 text-white text-sm font-medium">{item.quantity}</span>
-                  <button onClick={() => updateQty(item.id, 1)} className="p-1.5 text-gray-400 hover:text-white hover:bg-[rgba(0,245,255,0.08)] transition-colors">
-                    <Plus className="h-3.5 w-3.5" />
-                  </button>
+              <div className="flex flex-col items-end gap-3">
+                <div className="flex items-center overflow-hidden rounded-lg border border-slate-300">
+                  <button onClick={() => updateQty(item.id, -1)} className="p-1.5 text-slate-500 hover:bg-slate-800"><Minus className="h-3.5 w-3.5" /></button>
+                  <span className="px-3 text-sm font-medium text-slate-100">{item.quantity}</span>
+                  <button onClick={() => updateQty(item.id, 1)} className="p-1.5 text-slate-500 hover:bg-slate-800"><Plus className="h-3.5 w-3.5" /></button>
                 </div>
-                <span className="text-[#00f5ff] font-bold">{formatPrice(item.price * item.quantity)}</span>
-                <button onClick={() => remove(item.id)} className="text-gray-600 hover:text-red-400 transition-colors">
-                  <Trash2 className="h-4 w-4" />
-                </button>
+                <span className="font-bold text-slate-100">{formatPrice(item.price * item.quantity)}</span>
+                <button onClick={() => setItems((prev) => prev.filter((x) => x.id !== item.id))} className="text-slate-400 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
               </div>
-            </NeonCard>
+            </Card>
           ))}
         </div>
 
-        {/* Summary */}
-        <div>
-          <NeonCard className="p-5 sticky top-20">
-            <h2 className="text-lg font-bold text-white mb-5">Order Summary</h2>
-
-            <div className="space-y-3 mb-5">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Subtotal</span>
-                <span className="text-white">{formatPrice(subtotal)}</span>
-              </div>
-              {couponApplied && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Discount (10%)</span>
-                  <span className="text-[#39ff14]">-{formatPrice(discount)}</span>
-                </div>
-              )}
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Shipping</span>
-                <span className={shipping === 0 ? 'text-[#39ff14]' : 'text-white'}>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
-              </div>
-              <div className="border-t border-[rgba(0,245,255,0.1)] pt-3 flex justify-between">
-                <span className="text-white font-semibold">Total</span>
-                <span className="text-[#00f5ff] font-bold text-lg">{formatPrice(total)}</span>
-              </div>
-            </div>
-
-            {/* Coupon */}
-            <div className="flex gap-2 mb-5">
-              <div className="flex-1 flex items-center bg-[#0a0a0f] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 gap-2">
-                <Tag className="h-4 w-4 text-gray-500 shrink-0" />
-                <input value={coupon} onChange={(e) => setCoupon(e.target.value)} placeholder="Coupon code" className="bg-transparent text-white text-sm py-2 outline-none flex-1 placeholder-gray-600" />
-              </div>
-              <NeonButton variant="outline" size="sm" onClick={() => setCouponApplied(!!coupon)}>Apply</NeonButton>
-            </div>
-            {couponApplied && <p className="text-[#39ff14] text-xs mb-4">✓ Coupon applied! 10% off</p>}
-
-            <Link href="/checkout">
-              <NeonButton variant="primary" size="lg" className="w-full">
-                Checkout <ArrowRight className="h-4 w-4" />
-              </NeonButton>
-            </Link>
-
-            <Link href="/shop">
-              <NeonButton variant="ghost" size="sm" className="w-full mt-2">Continue Shopping</NeonButton>
-            </Link>
-          </NeonCard>
-        </div>
+        <Card className="sticky top-20 h-fit p-5">
+          <h2 className="mb-4 text-lg font-bold text-slate-100">Order Summary</h2>
+          <div className="mb-4 flex justify-between border-b border-slate-700 pb-3 text-sm">
+            <span className="text-slate-500">Subtotal</span>
+            <span className="text-slate-100">{formatPrice(subtotal)}</span>
+          </div>
+          <Link
+            href="/checkout"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+          >
+            Checkout
+          </Link>
+        </Card>
       </div>
+
+      <CartDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        items={drawerItems}
+      />
     </div>
   );
 }

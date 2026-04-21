@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 export default function UserSettingsPage() {
   const [profile, setProfile] = useState({ name: 'Alex Johnson', email: 'alex@example.com', phone: '+1 (555) 123-4567' });
@@ -37,7 +37,7 @@ export default function UserSettingsPage() {
       <h1 className="text-2xl font-bold text-white">Account Settings</h1>
 
       {/* Profile */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Profile Information</h2>
         <form onSubmit={saveProfile} className="space-y-4">
           {[
@@ -55,14 +55,14 @@ export default function UserSettingsPage() {
               />
             </div>
           ))}
-          <NeonButton type="submit" className="w-full">
+          <Button type="submit" className="w-full">
             {saved === 'profile' ? '✓ Saved!' : 'Save Profile'}
-          </NeonButton>
+          </Button>
         </form>
-      </NeonCard>
+      </Card>
 
       {/* Password */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Change Password</h2>
         <form onSubmit={savePassword} className="space-y-4">
           {[
@@ -80,14 +80,14 @@ export default function UserSettingsPage() {
               />
             </div>
           ))}
-          <NeonButton type="submit" variant="outline" className="w-full">
+          <Button type="submit" variant="outline" className="w-full">
             {saved === 'password' ? '✓ Password Updated!' : 'Update Password'}
-          </NeonButton>
+          </Button>
         </form>
-      </NeonCard>
+      </Card>
 
       {/* Notifications */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Notification Preferences</h2>
         <div className="space-y-4">
           {[
@@ -115,10 +115,10 @@ export default function UserSettingsPage() {
             </div>
           ))}
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Danger Zone */}
-      <NeonCard className="p-6 border-red-500/30">
+      <Card className="p-6 border-red-500/30">
         <h2 className="text-lg font-semibold text-red-400 mb-2">Danger Zone</h2>
         <p className="text-gray-400 text-sm mb-4">
           Permanently delete your account and all associated data. This action cannot be undone.
@@ -126,7 +126,7 @@ export default function UserSettingsPage() {
         <button className="px-4 py-2 rounded-lg border border-red-500/50 text-red-400 text-sm hover:bg-red-500/10 transition-colors">
           Delete My Account
         </button>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

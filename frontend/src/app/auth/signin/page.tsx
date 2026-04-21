@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Eye, EyeOff, Zap, Lock, Mail } from 'lucide-react';
-import NeonButton from '@/components/ui/NeonButton';
+import Button from '@/components/ui/Button';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function SignInPage() {
@@ -67,7 +67,7 @@ export default function SignInPage() {
               </div>
             </div>
             {error && <p className="text-red-400 text-sm">{error}</p>}
-            <NeonButton variant="primary" size="lg" className="w-full" type="submit" loading={loading}>Sign In</NeonButton>
+            <Button variant="primary" size="lg" className="w-full" type="submit" loading={loading}>Sign In</Button>
           </form>
 
           <div className="relative my-5">

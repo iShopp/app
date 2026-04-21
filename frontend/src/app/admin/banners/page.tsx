@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const initialBanners = [
   { id: 1, title: 'Summer Sale 2024', position: 'Hero', active: true, bg: 'from-[#ff00ff]/20 to-[#00f5ff]/20' },
@@ -35,13 +35,13 @@ export default function BannersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Banners</h1>
-        <NeonButton onClick={() => setShowForm(!showForm)}>
+        <Button onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : '+ Add Banner'}
-        </NeonButton>
+        </Button>
       </div>
 
       {showForm && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">New Banner</h2>
           <form onSubmit={handleAdd} className="grid sm:grid-cols-3 gap-4">
             <div className="sm:col-span-2">
@@ -62,15 +62,15 @@ export default function BannersPage() {
               <label htmlFor="bannerActive" className="text-sm text-gray-300">Active</label>
             </div>
             <div className="sm:col-span-3">
-              <NeonButton type="submit" className="w-full">Create Banner</NeonButton>
+              <Button type="submit" className="w-full">Create Banner</Button>
             </div>
           </form>
-        </NeonCard>
+        </Card>
       )}
 
       <div className="grid sm:grid-cols-2 gap-4">
         {banners.map((banner) => (
-          <NeonCard key={banner.id} className="p-0 overflow-hidden">
+          <Card key={banner.id} className="p-0 overflow-hidden">
             {/* Image Preview */}
             <div className={`h-32 bg-gradient-to-r ${banner.bg} flex items-center justify-center border-b border-[rgba(0,245,255,0.1)]`}>
               <div className="text-center">
@@ -101,7 +101,7 @@ export default function BannersPage() {
                 </div>
               </div>
             </div>
-          </NeonCard>
+          </Card>
         ))}
       </div>
     </div>

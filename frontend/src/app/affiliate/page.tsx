@@ -1,5 +1,4 @@
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
 import { formatDate } from '@/lib/utils';
 
 const kpis = [
@@ -36,18 +35,18 @@ export default function AffiliateDashboard() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((k) => (
-          <NeonCard key={k.label} className="p-4">
+          <Card key={k.label} className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-2xl">{k.icon}</span>
             </div>
             <p className="text-2xl font-bold" style={{ color: k.color }}>{k.value}</p>
             <p className="text-gray-400 text-xs mt-1">{k.label}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
       {/* Performance Chart */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Earnings Trend (Last 14 days)</h2>
         <div className="flex items-end gap-1.5 h-28">
           {chartBars.map((val, i) => (
@@ -66,10 +65,10 @@ export default function AffiliateDashboard() {
           <span>14 days ago</span>
           <span>Today</span>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Recent Conversions */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Recent Conversions</h2>
           <a href="/affiliate/conversions" className="text-[#00f5ff] text-sm hover:underline">View all →</a>
@@ -101,7 +100,7 @@ export default function AffiliateDashboard() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

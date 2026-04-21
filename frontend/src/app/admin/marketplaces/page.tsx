@@ -1,5 +1,5 @@
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const marketplaces = [
   { name: 'Temu', id: 'temu', icon: '🛒', color: '#ff6900', connected: true, products: 3241, lastSync: '5 min ago', status: 'connected' },
@@ -15,7 +15,7 @@ export default function MarketplacesPage() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-5">
         {marketplaces.map((mp) => (
-          <NeonCard key={mp.id} className="p-6">
+          <Card key={mp.id} className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div
@@ -47,22 +47,22 @@ export default function MarketplacesPage() {
             <div className="flex gap-2">
               {mp.connected ? (
                 <>
-                  <NeonButton size="sm" className="flex-1">Sync Now</NeonButton>
+                  <Button size="sm" className="flex-1">Sync Now</Button>
                   <a href={`/admin/marketplaces/${mp.id}`}>
-                    <NeonButton size="sm" variant="outline">Configure</NeonButton>
+                    <Button size="sm" variant="outline">Configure</Button>
                   </a>
                 </>
               ) : (
                 <a href={`/admin/marketplaces/${mp.id}`} className="flex-1">
-                  <NeonButton className="w-full">Connect</NeonButton>
+                  <Button className="w-full">Connect</Button>
                 </a>
               )}
             </div>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-3">Sync Summary</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div className="text-center">
@@ -82,7 +82,7 @@ export default function MarketplacesPage() {
             <p className="text-gray-400 text-sm">Auto Rules</p>
           </div>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

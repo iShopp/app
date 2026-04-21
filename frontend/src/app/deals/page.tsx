@@ -1,7 +1,7 @@
 import { Tag, Clock, Copy, Zap } from 'lucide-react';
-import NeonCard from '@/components/ui/NeonCard';
+import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
-import NeonButton from '@/components/ui/NeonButton';
+import Button from '@/components/ui/Button';
 
 const DEALS = [
   { id: '1', code: 'NEON20', discount: '20% OFF', description: 'All Electronics & Gadgets', expires: '2024-12-31', type: 'Electronics', color: '#00f5ff', minPurchase: 30 },
@@ -51,7 +51,7 @@ export default function DealsPage() {
             const pct = Math.round(((deal.originalPrice - deal.salePrice) / deal.originalPrice) * 100);
             const progress = (deal.sold / deal.total) * 100;
             return (
-              <NeonCard key={i} glowColor="magenta" className="p-5">
+              <Card key={i} glowColor="magenta" className="p-5">
                 <div className="flex items-center justify-between mb-3">
                   <Badge variant="magenta">-{pct}%</Badge>
                   <div className="flex items-center gap-1 text-[#ff00ff] text-sm">
@@ -73,8 +73,8 @@ export default function DealsPage() {
                     <div className="h-full bg-gradient-to-r from-[#ff00ff] to-[#00f5ff] rounded-full" style={{ width: `${progress}%` }} />
                   </div>
                 </div>
-                <NeonButton variant="secondary" size="sm" className="w-full mt-3">Grab Deal</NeonButton>
-              </NeonCard>
+                <Button variant="secondary" size="sm" className="w-full mt-3">Grab Deal</Button>
+              </Card>
             );
           })}
         </div>

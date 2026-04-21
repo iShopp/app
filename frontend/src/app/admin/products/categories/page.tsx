@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const initialCategories = [
   { id: 1, name: 'Electronics', slug: 'electronics', parent: null, productCount: 3241, active: true },
@@ -48,13 +48,13 @@ export default function CategoriesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Categories</h1>
-        <NeonButton onClick={() => { setShowForm(!showForm); setEditId(null); setForm(emptyForm); }}>
+        <Button onClick={() => { setShowForm(!showForm); setEditId(null); setForm(emptyForm); }}>
           {showForm && !editId ? 'Cancel' : '+ Add Category'}
-        </NeonButton>
+        </Button>
       </div>
 
       {showForm && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">{editId ? 'Edit Category' : 'New Category'}</h2>
           <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -80,14 +80,14 @@ export default function CategoriesPage() {
               <label htmlFor="active" className="text-sm text-gray-300">Active</label>
             </div>
             <div className="sm:col-span-2">
-              <NeonButton type="submit" className="w-full">{editId ? 'Update Category' : 'Create Category'}</NeonButton>
+              <Button type="submit" className="w-full">{editId ? 'Update Category' : 'Create Category'}</Button>
             </div>
           </form>
-        </NeonCard>
+        </Card>
       )}
 
       {/* Category Tree */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -143,7 +143,7 @@ export default function CategoriesPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

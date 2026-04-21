@@ -3,18 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --neon-cyan: #00f5ff;
-  --neon-magenta: #ff00ff;
-  --neon-purple: #9d4edd;
-  --neon-green: #39ff14;
-  --dark-bg: #0a0a0f;
-  --dark-card: #111118;
-  --dark-surface: #1a1a24;
-  --text-primary: #ffffff;
-  --text-secondary: #e5e7eb;
-  --text-muted: #9ca3af;
-  --border-neon: rgba(0, 245, 255, 0.15);
-  --border-neon-hover: rgba(0, 245, 255, 0.4);
+  --bg: #020617;
+  --surface: #0f172a;
+  --border: #334155;
+  --text: #f8fafc;
+  --muted: #94a3b8;
 }
 
 * {
@@ -27,97 +20,30 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--dark-bg);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--dark-bg);
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 245, 255, 0.3);
-  border-radius: 3px;
+  background: #475569;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 245, 255, 0.6);
+  background: #94a3b8;
 }
 
-/* Neon text glow */
-.neon-text-cyan {
-  color: var(--neon-cyan);
-  text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff;
-}
-
-.neon-text-magenta {
-  color: var(--neon-magenta);
-  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
-}
-
-.neon-text-purple {
-  color: var(--neon-purple);
-  text-shadow: 0 0 10px #9d4edd, 0 0 20px #9d4edd;
-}
-
-/* Glow effects */
-.glow-cyan {
-  box-shadow: 0 0 10px rgba(0, 245, 255, 0.4), 0 0 20px rgba(0, 245, 255, 0.2);
-}
-
-.glow-magenta {
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.4), 0 0 20px rgba(255, 0, 255, 0.2);
-}
-
-/* Glass card */
-.glass-card {
-  background: rgba(17, 17, 24, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 245, 255, 0.15);
-}
-
-/* Neon border gradient */
-.neon-border {
-  border: 1px solid rgba(0, 245, 255, 0.2);
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.neon-border:hover {
-  border-color: rgba(0, 245, 255, 0.5);
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
-}
-
-/* Input styles */
-.neon-input {
-  background: rgba(26, 26, 36, 0.8);
-  border: 1px solid rgba(0, 245, 255, 0.2);
-  color: white;
-  border-radius: 0.5rem;
-  padding: 0.625rem 1rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  width: 100%;
-}
-
-.neon-input:focus {
-  border-color: #00f5ff;
-  box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.1);
-}
-
-.neon-input::placeholder {
-  color: #6b7280;
-}
-
-/* Selection */
 ::selection {
-  background: rgba(0, 245, 255, 0.3);
-  color: white;
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--text);
 }

@@ -105,9 +105,9 @@ export function getMarketplaceColor(marketplace: string): string {
     aliexpress: '#ff4747',
     amazon: '#ff9900',
     ebay: '#0064d2',
-    manual: '#00f5ff',
+    manual: '#2563eb',
   };
-  return colors[marketplace] || '#00f5ff';
+  return colors[marketplace] || '#2563eb';
 }
 
 export function getOrderStatusColor(status: string): string {

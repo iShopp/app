@@ -1,5 +1,5 @@
 import { Search, SlidersHorizontal } from 'lucide-react';
-import NeonCard from '@/components/ui/NeonCard';
+import Card from '@/components/ui/Card';
 import { formatPrice } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -48,7 +48,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
                 const mpColors: Record<string, string> = { temu: '#ff6900', aliexpress: '#ff4747', amazon: '#ff9900', ebay: '#0064d2' };
                 return (
-                  <NeonCard key={product.id} className="overflow-hidden group">
+                  <Card key={product.id} className="overflow-hidden group">
                     <Link href={`/product/${product.slug}`} className="block">
                       <div className="relative aspect-square overflow-hidden bg-[#0d0d15]">
                         <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -65,7 +65,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                         </div>
                       </div>
                     </Link>
-                  </NeonCard>
+                  </Card>
                 );
               })}
             </div>
