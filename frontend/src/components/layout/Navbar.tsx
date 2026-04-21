@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ShoppingCart, Search, Menu, X, User, Store } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { NAVIGATION_LINKS } from '@/lib/constants';
@@ -16,6 +16,7 @@ export default function Navbar({ cartCount = 0 }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -51,8 +52,9 @@ export default function Navbar({ cartCount = 0 }: NavbarProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' && searchQuery.trim()) {
-                    window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+                  const query = searchQuery.trim();
+                  if (e.key === 'Enter' && query) {
+                    router.push(`/search?q=${encodeURIComponent(query)}`);
                   }
                 }}
                 placeholder="Search products"

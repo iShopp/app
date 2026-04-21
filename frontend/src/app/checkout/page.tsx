@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CheckCircle2, Lock } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import CheckoutForm from '@/components/checkout/CheckoutForm';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -28,6 +29,7 @@ function redactEmail(email: string): string {
 export default function CheckoutPage() {
   const [done, setDone] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const router = useRouter();
 
   const handleOrder = async (values: Record<string, string>) => {
     setSubmitError('');
@@ -52,7 +54,7 @@ export default function CheckoutPage() {
         <CheckCircle2 className="mx-auto mb-4 h-16 w-16 text-green-600" />
         <h1 className="mb-2 text-2xl font-semibold text-slate-100">Order placed successfully</h1>
         <p className="mb-6 text-slate-400">Your confirmation email is on the way.</p>
-        <Button onClick={() => { window.location.href = '/users/orders'; }}>Track order</Button>
+        <Button onClick={() => router.push('/users/orders')}>Track order</Button>
       </div>
     );
   }

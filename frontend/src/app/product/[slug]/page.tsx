@@ -156,10 +156,11 @@ export default function ProductPage({ params: _params }: ProductPageProps) {
               <ShoppingCart className="h-5 w-5" />
               {addedToCart ? 'Added! ✓' : 'Add to Cart'}
             </Button>
-            <Link href="/checkout" className="flex-1">
-              <Button variant="secondary" size="lg" className="w-full">
-                Buy Now
-              </Button>
+            <Link
+              href="/checkout"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-orange-500 px-7 py-3.5 text-base font-medium text-white transition-colors duration-200 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+            >
+              Buy Now
             </Link>
           </div>
 

@@ -1,7 +1,7 @@
 import KPICard from '@/components/admin/KPICard';
+import Link from 'next/link';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import { formatPrice, formatDate } from '@/lib/utils';
+import { cn, formatPrice, formatDate } from '@/lib/utils';
 
 import { DollarSign, ShoppingBag, Package, Users } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -35,6 +35,10 @@ const statusColors: Record<string, string> = {
   delivered: 'text-green-400 bg-green-400/10',
   cancelled: 'text-red-400 bg-red-400/10',
 };
+
+const quickActionBaseClass = 'inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400/30';
+const quickActionPrimaryClass = cn(quickActionBaseClass, 'bg-orange-500 text-white hover:bg-orange-600');
+const quickActionOutlineClass = cn(quickActionBaseClass, 'border border-slate-600 bg-slate-900 text-slate-100 hover:bg-slate-800');
 
 export default function AdminDashboard() {
   return (
@@ -113,10 +117,10 @@ export default function AdminDashboard() {
       <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
-          <a href="/admin/products/import"><Button>📥 Import Products</Button></a>
-          <a href="/admin/pricing"><Button variant="outline">💲 Sync Prices</Button></a>
-          <a href="/admin/analytics"><Button variant="outline">📊 View Analytics</Button></a>
-          <a href="/admin/automation"><Button variant="outline">⚙️ Automation</Button></a>
+          <Link href="/admin/products/import" className={quickActionPrimaryClass}>📥 Import Products</Link>
+          <Link href="/admin/pricing" className={quickActionOutlineClass}>💲 Sync Prices</Link>
+          <Link href="/admin/analytics" className={quickActionOutlineClass}>📊 View Analytics</Link>
+          <Link href="/admin/automation" className={quickActionOutlineClass}>⚙️ Automation</Link>
         </div>
       </Card>
     </div>

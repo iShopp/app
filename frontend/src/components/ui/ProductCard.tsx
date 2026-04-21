@@ -27,28 +27,35 @@ export default function ProductCard({ product, onAddToCart, className, view = 'g
 
   return (
     <div className={cn('group overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:shadow-md', isList && 'flex gap-4 p-3', className)}>
-      <Link href={`/product/${product.slug}`} className={cn('block relative overflow-hidden bg-slate-100', isList ? 'h-28 w-28 shrink-0 rounded-lg' : 'aspect-square')}>
-        {!imgError ? (
-          <Image
-            src={product.images[0] || 'https://placehold.co/400x400/f8fafc/64748b?text=Product'}
-            alt={product.name}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            onError={() => setImgError(true)}
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-slate-500 text-4xl">🛍️</div>
-        )}
-        {discount > 0 && (
-          <div className="absolute top-2 left-2">
-            <span className="rounded-full bg-orange-500 px-2 py-1 text-xs font-bold text-white">-{discount}%</span>
-          </div>
-        )}
-        <button onClick={(e) => { e.preventDefault(); setIsWishlisted((v) => !v); }} className="absolute top-2 right-2 rounded-full bg-white/80 p-1.5 transition-colors hover:bg-white">
+      <div className={cn('relative overflow-hidden bg-slate-100', isList ? 'h-28 w-28 shrink-0 rounded-lg' : 'aspect-square')}>
+        <Link href={`/product/${product.slug}`} className="block h-full w-full" aria-label={`View ${product.name}`}>
+          {!imgError ? (
+            <Image
+              src={product.images[0] || 'https://placehold.co/400x400/f8fafc/64748b?text=Product'}
+              alt={product.name}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImgError(true)}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-slate-500 text-4xl">🛍️</div>
+          )}
+          {discount > 0 && (
+            <div className="absolute top-2 left-2">
+              <span className="rounded-full bg-orange-500 px-2 py-1 text-xs font-bold text-white">-{discount}%</span>
+            </div>
+          )}
+        </Link>
+        <button
+          type="button"
+          aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+          onClick={() => setIsWishlisted((v) => !v)}
+          className="absolute top-2 right-2 rounded-full bg-white/80 p-1.5 transition-colors hover:bg-white"
+        >
           <Heart className={cn('h-4 w-4 transition-colors', isWishlisted ? 'fill-rose-500 text-rose-500' : 'text-slate-500')} />
         </button>
-      </Link>
+      </div>
 
       <div className={cn('p-3', isList && 'flex flex-1 flex-col p-0')}>
         <div className="mb-2 flex items-center justify-between">

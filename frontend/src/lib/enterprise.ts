@@ -8,7 +8,10 @@ export type EnterpriseLogEvent = {
   message: string;
 };
 
+const ENTERPRISE_LOG_ENABLED = process.env.NEXT_PUBLIC_ENABLE_ENTERPRISE_LOGGING === 'true';
+
 export function enterpriseLog(event: EnterpriseLogEvent) {
+  if (!ENTERPRISE_LOG_ENABLED) return;
   // eslint-disable-next-line no-console
   console.info('[enterprise-log]', event);
 }

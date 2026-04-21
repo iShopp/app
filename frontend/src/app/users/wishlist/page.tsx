@@ -35,7 +35,12 @@ export default function WishlistPage() {
           <p className="text-4xl mb-3">❤️</p>
           <p className="text-gray-400">Your wishlist is empty.</p>
           <div className="mt-4">
-            <Link href="/shop"><Button>Browse Products</Button></Link>
+            <Link
+              href="/shop"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+            >
+              Browse Products
+            </Link>
           </div>
         </Card>
       ) : (

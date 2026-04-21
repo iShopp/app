@@ -35,7 +35,12 @@ export default function CartPage() {
         <ShoppingCart className="mx-auto mb-6 h-20 w-20 text-slate-300" />
         <h2 className="mb-3 text-2xl font-bold text-slate-100">Your cart is empty</h2>
         <p className="mb-8 text-slate-400">Add products to continue.</p>
-        <Link href="/shop"><Button size="lg">Start Shopping</Button></Link>
+        <Link
+          href="/shop"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+        >
+          Start Shopping
+        </Link>
       </div>
     );
   }
@@ -74,7 +79,12 @@ export default function CartPage() {
             <span className="text-slate-500">Subtotal</span>
             <span className="text-slate-100">{formatPrice(subtotal)}</span>
           </div>
-          <Link href="/checkout"><Button className="w-full">Checkout</Button></Link>
+          <Link
+            href="/checkout"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+          >
+            Checkout
+          </Link>
         </Card>
       </div>
 
