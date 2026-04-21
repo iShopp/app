@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
 
 const allOrders = [
@@ -52,12 +52,12 @@ export default function OrdersPage() {
       {/* Order Cards */}
       <div className="space-y-4">
         {filtered.length === 0 && (
-          <NeonCard className="p-8 text-center">
+          <Card className="p-8 text-center">
             <p className="text-gray-400">No orders found.</p>
-          </NeonCard>
+          </Card>
         )}
         {filtered.map((order) => (
-          <NeonCard key={order.id} className="p-5">
+          <Card key={order.id} className="p-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2">
@@ -85,17 +85,17 @@ export default function OrdersPage() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <a href={`/users/orders/${order.id}`}>
-                    <NeonButton size="sm" variant="outline">View</NeonButton>
+                    <Button size="sm" variant="outline">View</Button>
                   </a>
                   {order.status === 'shipped' && (
                     <a href="/users/track">
-                      <NeonButton size="sm">Track</NeonButton>
+                      <Button size="sm">Track</Button>
                     </a>
                   )}
                 </div>
               </div>
             </div>
-          </NeonCard>
+          </Card>
         ))}
       </div>
     </div>

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
 
 const products = [
@@ -38,13 +38,13 @@ export default function ProductsPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold text-white">Products</h1>
         <div className="flex gap-2">
-          <a href="/admin/products/import"><NeonButton>📥 Import</NeonButton></a>
-          <NeonButton variant="outline">+ Add Product</NeonButton>
+          <a href="/admin/products/import"><Button>📥 Import</Button></a>
+          <Button variant="outline">+ Add Product</Button>
         </div>
       </div>
 
       {/* Search & Filters */}
-      <NeonCard className="p-4">
+      <Card className="p-4">
         <div className="flex flex-wrap gap-3">
           <input
             value={search}
@@ -72,10 +72,10 @@ export default function ProductsPage() {
             <option value="accessories">Accessories</option>
           </select>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Products Table */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -116,7 +116,7 @@ export default function ProductsPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

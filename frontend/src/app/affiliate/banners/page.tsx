@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const banners = [
   {
@@ -73,7 +73,7 @@ export default function AffiliateBannersPage() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {banners.map((banner) => (
-          <NeonCard key={banner.id} className="p-4 space-y-3">
+          <Card key={banner.id} className="p-4 space-y-3">
             {/* Preview */}
             <div className={`w-full bg-gradient-to-r ${banner.bg} rounded-lg flex items-center justify-center border border-[rgba(0,245,255,0.1)] overflow-hidden`}
               style={{ minHeight: 60, maxHeight: 120 }}>
@@ -103,11 +103,11 @@ export default function AffiliateBannersPage() {
             >
               {copied === banner.id ? '✓ Code Copied!' : '📋 Copy Embed Code'}
             </button>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-2">Text Link</h2>
         <p className="text-gray-400 text-sm mb-3">Use this simple text link anywhere</p>
         <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export default function AffiliateBannersPage() {
             {copied === 99 ? '✓' : 'Copy'}
           </button>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

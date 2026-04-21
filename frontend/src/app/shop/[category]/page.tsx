@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import NeonCard from '@/components/ui/NeonCard';
+import Card from '@/components/ui/Card';
 import { SAMPLE_CATEGORIES } from '@/lib/constants';
 import { formatPrice } from '@/lib/utils';
 
@@ -49,7 +49,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
           const mpColors: Record<string, string> = { temu: '#ff6900', aliexpress: '#ff4747', amazon: '#ff9900', ebay: '#0064d2' };
           return (
-            <NeonCard key={product.id} className="overflow-hidden group">
+            <Card key={product.id} className="overflow-hidden group">
               <Link href={`/product/${product.slug}`} className="block">
                 <div className="relative aspect-square overflow-hidden bg-[#0d0d15]">
                   <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
@@ -66,7 +66,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </div>
                 </div>
               </Link>
-            </NeonCard>
+            </Card>
           );
         })}
       </div>

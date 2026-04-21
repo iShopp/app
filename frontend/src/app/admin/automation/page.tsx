@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const initialJobs = [
   { id: 1, name: 'Price Sync', type: 'sync', icon: '💲', status: 'idle', lastRun: '10 min ago', nextRun: 'In 50 min', schedule: 'Every 1 hour' },
@@ -35,7 +35,7 @@ export default function AutomationPage() {
           <h1 className="text-2xl font-bold text-white">Automation Jobs</h1>
           <p className="text-gray-400 text-sm">Scheduled background tasks and automated workflows</p>
         </div>
-        <NeonButton variant="outline">+ New Job</NeonButton>
+        <Button variant="outline">+ New Job</Button>
       </div>
 
       {/* Summary */}
@@ -46,10 +46,10 @@ export default function AutomationPage() {
           { label: 'Failed', value: jobs.filter((j) => j.status === 'failed').length, color: '#ff4444' },
           { label: 'Completed Today', value: 12, color: '#39ff14' },
         ].map((s) => (
-          <NeonCard key={s.label} className="p-4">
+          <Card key={s.label} className="p-4">
             <p className="text-gray-400 text-xs mb-1 uppercase tracking-wide">{s.label}</p>
             <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
@@ -58,7 +58,7 @@ export default function AutomationPage() {
         {jobs.map((job) => {
           const style = statusStyles[job.status];
           return (
-            <NeonCard key={job.id} className="p-5">
+            <Card key={job.id} className="p-5">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-[#0d0d15] flex items-center justify-center text-xl border border-[rgba(0,245,255,0.1)]">
@@ -92,17 +92,17 @@ export default function AutomationPage() {
 
               <div className="flex gap-2">
                 {job.status === 'running' ? (
-                  <NeonButton size="sm" variant="outline" className="flex-1" onClick={() => stopJob(job.id)}>
+                  <Button size="sm" variant="outline" className="flex-1" onClick={() => stopJob(job.id)}>
                     ⏹ Stop
-                  </NeonButton>
+                  </Button>
                 ) : (
-                  <NeonButton size="sm" className="flex-1" onClick={() => runJob(job.id)}>
+                  <Button size="sm" className="flex-1" onClick={() => runJob(job.id)}>
                     ▶ Run Now
-                  </NeonButton>
+                  </Button>
                 )}
                 <button className="text-xs text-gray-500 hover:text-gray-300 px-2">⚙</button>
               </div>
-            </NeonCard>
+            </Card>
           );
         })}
       </div>

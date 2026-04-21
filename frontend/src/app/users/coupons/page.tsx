@@ -1,7 +1,7 @@
 'use client';
 
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
 
 const coupons = [
@@ -25,7 +25,7 @@ export default function CouponsPage() {
       <h1 className="text-2xl font-bold text-white">Coupons & Rewards</h1>
 
       {/* Reward Points */}
-      <NeonCard className="p-6 bg-gradient-to-r from-[rgba(157,78,221,0.1)] to-[rgba(0,245,255,0.05)]">
+      <Card className="p-6 bg-gradient-to-r from-[rgba(157,78,221,0.1)] to-[rgba(0,245,255,0.05)]">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-full bg-[#9d4edd]/20 border border-[#9d4edd]/40 flex items-center justify-center text-2xl">
@@ -40,17 +40,17 @@ export default function CouponsPage() {
           <div className="text-right">
             <p className="text-gray-400 text-xs mb-1">Points expire</p>
             <p className="text-yellow-400 font-medium text-sm">Dec 31, 2024</p>
-            <NeonButton size="sm" className="mt-2">Redeem Points</NeonButton>
+            <Button size="sm" className="mt-2">Redeem Points</Button>
           </div>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Available Coupons */}
       <div>
         <h2 className="text-lg font-semibold text-white mb-3">Available Coupons ({available.length})</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {available.map((coupon) => (
-            <NeonCard key={coupon.code} className="p-4">
+            <Card key={coupon.code} className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -69,13 +69,13 @@ export default function CouponsPage() {
                   Copy
                 </button>
               </div>
-            </NeonCard>
+            </Card>
           ))}
         </div>
       </div>
 
       {/* History */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Coupon History</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -101,7 +101,7 @@ export default function CouponsPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

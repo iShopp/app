@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
 
 const affiliates = [
@@ -30,7 +30,7 @@ export default function AffiliatesAdminPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Affiliates</h1>
-        <NeonButton>+ Invite Affiliate</NeonButton>
+        <Button>+ Invite Affiliate</Button>
       </div>
 
       {/* Summary */}
@@ -41,23 +41,23 @@ export default function AffiliatesAdminPage() {
           { label: 'Total Conversions', value: affiliates.reduce((s, a) => s + a.conversions, 0), color: '#ff00ff' },
           { label: 'Total Paid Out', value: `$${affiliates.reduce((s, a) => s + a.earnings, 0).toLocaleString('en', { minimumFractionDigits: 2 })}`, color: '#9d4edd' },
         ].map((s) => (
-          <NeonCard key={s.label} className="p-4">
+          <Card key={s.label} className="p-4">
             <p className="text-gray-400 text-xs mb-1 uppercase tracking-wide">{s.label}</p>
             <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
-      <NeonCard className="p-4">
+      <Card className="p-4">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search affiliates by name or code..."
           className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00f5ff] text-sm"
         />
-      </NeonCard>
+      </Card>
 
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -92,7 +92,7 @@ export default function AffiliatesAdminPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

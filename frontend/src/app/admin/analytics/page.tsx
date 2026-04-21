@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const periods = ['7d', '30d', '90d'];
 
@@ -71,16 +71,16 @@ export default function AnalyticsPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis[period].map((k) => (
-          <NeonCard key={k.label} className="p-4">
+          <Card key={k.label} className="p-4">
             <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">{k.label}</p>
             <p className="text-2xl font-bold" style={{ color: k.color }}>{k.value}</p>
             <p className="text-green-400 text-xs mt-1">↑ {k.change}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
       {/* Revenue Chart */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Revenue Trend</h2>
         <div className="flex items-end gap-1.5 h-36">
           {bars.map((val, i) => (
@@ -101,11 +101,11 @@ export default function AnalyticsPage() {
           <span>Mid</span>
           <span>End</span>
         </div>
-      </NeonCard>
+      </Card>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Top Products */}
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Top Products</h2>
           <div className="space-y-3">
             {topProducts.map((p, i) => (
@@ -120,10 +120,10 @@ export default function AnalyticsPage() {
               </div>
             ))}
           </div>
-        </NeonCard>
+        </Card>
 
         {/* Traffic Sources */}
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Traffic Sources</h2>
           <div className="space-y-3">
             {trafficSources.map((s) => (
@@ -138,7 +138,7 @@ export default function AnalyticsPage() {
               </div>
             ))}
           </div>
-        </NeonCard>
+        </Card>
       </div>
     </div>
   );

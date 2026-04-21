@@ -1,6 +1,6 @@
 import KPICard from '@/components/admin/KPICard';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
 
 import { DollarSign, ShoppingBag, Package, Users } from 'lucide-react';
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
       {/* Recent Orders & Marketplace Sync */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Orders Table */}
-        <NeonCard className="p-6 lg:col-span-2">
+        <Card className="p-6 lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
             <a href="/admin/orders" className="text-[#00f5ff] text-sm hover:underline">View all →</a>
@@ -85,10 +85,10 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           </div>
-        </NeonCard>
+        </Card>
 
         {/* Marketplace Sync */}
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Marketplace Sync</h2>
           <div className="space-y-3">
             {marketplaces.map((mp) => (
@@ -106,19 +106,19 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-        </NeonCard>
+        </Card>
       </div>
 
       {/* Quick Actions */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
-          <a href="/admin/products/import"><NeonButton>📥 Import Products</NeonButton></a>
-          <a href="/admin/pricing"><NeonButton variant="outline">💲 Sync Prices</NeonButton></a>
-          <a href="/admin/analytics"><NeonButton variant="outline">📊 View Analytics</NeonButton></a>
-          <a href="/admin/automation"><NeonButton variant="outline">⚙️ Automation</NeonButton></a>
+          <a href="/admin/products/import"><Button>📥 Import Products</Button></a>
+          <a href="/admin/pricing"><Button variant="outline">💲 Sync Prices</Button></a>
+          <a href="/admin/analytics"><Button variant="outline">📊 View Analytics</Button></a>
+          <a href="/admin/automation"><Button variant="outline">⚙️ Automation</Button></a>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

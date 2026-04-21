@@ -1,5 +1,5 @@
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
 
 const order = {
@@ -52,7 +52,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
       </div>
 
       {/* Header */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-xl font-bold text-white font-mono">{order.id}</h1>
@@ -62,10 +62,10 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             {order.status}
           </span>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Timeline */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-5">Order Progress</h2>
         <div className="flex flex-wrap gap-2">
           {timeline.map((step, i) => (
@@ -85,10 +85,10 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             </div>
           ))}
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Items */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-4">Order Items</h2>
         <div className="space-y-3">
           {order.items.map((item, i) => (
@@ -104,11 +104,11 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             </div>
           ))}
         </div>
-      </NeonCard>
+      </Card>
 
       <div className="grid sm:grid-cols-2 gap-4">
         {/* Shipping */}
-        <NeonCard className="p-5">
+        <Card className="p-5">
           <h2 className="text-lg font-semibold text-white mb-3">Shipping Address</h2>
           <div className="text-gray-300 text-sm space-y-1">
             <p className="font-medium text-white">{order.shipping.name}</p>
@@ -116,10 +116,10 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             <p>{order.shipping.city}, {order.shipping.state} {order.shipping.zip}</p>
             <p>{order.shipping.country}</p>
           </div>
-        </NeonCard>
+        </Card>
 
         {/* Payment */}
-        <NeonCard className="p-5">
+        <Card className="p-5">
           <h2 className="text-lg font-semibold text-white mb-3">Payment Info</h2>
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">{order.payment.brand}</span>
@@ -146,14 +146,14 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
               <span className="text-[#00f5ff]">{formatPrice(order.total)}</span>
             </div>
           </div>
-        </NeonCard>
+        </Card>
       </div>
 
       <div className="flex gap-3">
         <a href="/users/track">
-          <NeonButton>Track Shipment</NeonButton>
+          <Button>Track Shipment</Button>
         </a>
-        <NeonButton variant="outline">Download Invoice</NeonButton>
+        <Button variant="outline">Download Invoice</Button>
       </div>
     </div>
   );

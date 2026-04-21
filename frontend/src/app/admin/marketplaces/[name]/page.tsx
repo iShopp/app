@@ -1,8 +1,8 @@
 'use client';
 
 import { use, useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const mpData: Record<string, {
   name: string; icon: string; color: string;
@@ -49,7 +49,7 @@ export default function MarketplaceConfigPage({ params }: { params: Promise<{ na
       </div>
 
       {/* Connection Settings */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Connection Settings</h2>
         <form onSubmit={handleSave} className="space-y-4">
           <div>
@@ -74,7 +74,7 @@ export default function MarketplaceConfigPage({ params }: { params: Promise<{ na
           </div>
 
           <div className="flex gap-3">
-            <NeonButton type="button" variant="outline" size="sm">Test Connection</NeonButton>
+            <Button type="button" variant="outline" size="sm">Test Connection</Button>
           </div>
 
           {/* Sync Settings */}
@@ -131,14 +131,14 @@ export default function MarketplaceConfigPage({ params }: { params: Promise<{ na
             </div>
           </div>
 
-          <NeonButton type="submit" className="w-full">
+          <Button type="submit" className="w-full">
             {saved ? '✓ Settings Saved!' : 'Save Configuration'}
-          </NeonButton>
+          </Button>
         </form>
-      </NeonCard>
+      </Card>
 
       {/* Status */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <h2 className="text-lg font-semibold text-white mb-3">Status</h2>
         <div className="grid grid-cols-2 gap-3">
           {[
@@ -153,7 +153,7 @@ export default function MarketplaceConfigPage({ params }: { params: Promise<{ na
             </div>
           ))}
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
 
 const supplierOrders = [
@@ -26,7 +26,7 @@ export default function SupplierOrdersPage() {
           <h1 className="text-2xl font-bold text-white">Supplier Orders</h1>
           <p className="text-gray-400 text-sm">Auto-placed orders on source marketplaces</p>
         </div>
-        <NeonButton variant="outline">📥 Export CSV</NeonButton>
+        <Button variant="outline">📥 Export CSV</Button>
       </div>
 
       {/* Summary Cards */}
@@ -37,15 +37,15 @@ export default function SupplierOrdersPage() {
           { label: 'Total Cost', value: '$1,234', color: '#9d4edd' },
           { label: 'Gross Margin', value: '62%', color: '#39ff14' },
         ].map((s) => (
-          <NeonCard key={s.label} className="p-4">
+          <Card key={s.label} className="p-4">
             <p className="text-gray-400 text-xs mb-1 uppercase tracking-wide">{s.label}</p>
             <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
       {/* Table */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -85,7 +85,7 @@ export default function SupplierOrdersPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

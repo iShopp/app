@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { ArrowLeft, ShoppingCart, Heart, Star, ChevronDown, ChevronUp, Shield, Truck, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
-import NeonButton from '@/components/ui/NeonButton';
-import NeonCard from '@/components/ui/NeonCard';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import { formatPrice } from '@/lib/utils';
 
@@ -152,14 +152,14 @@ export default function ProductPage({ params: _params }: ProductPageProps) {
 
           {/* CTA */}
           <div className="flex gap-3 mb-6">
-            <NeonButton variant="primary" size="lg" className="flex-1" onClick={handleAddToCart}>
+            <Button variant="primary" size="lg" className="flex-1" onClick={handleAddToCart}>
               <ShoppingCart className="h-5 w-5" />
               {addedToCart ? 'Added! ✓' : 'Add to Cart'}
-            </NeonButton>
+            </Button>
             <Link href="/checkout" className="flex-1">
-              <NeonButton variant="secondary" size="lg" className="w-full">
+              <Button variant="secondary" size="lg" className="w-full">
                 Buy Now
-              </NeonButton>
+              </Button>
             </Link>
           </div>
 
@@ -180,13 +180,13 @@ export default function ProductPage({ params: _params }: ProductPageProps) {
       </div>
 
       {/* Description */}
-      <NeonCard className="p-6 mb-6">
+      <Card className="p-6 mb-6">
         <h2 className="text-lg font-bold text-white mb-3">Product Description</h2>
         <p className="text-gray-400 leading-relaxed">{product.description}</p>
-      </NeonCard>
+      </Card>
 
       {/* FAQ */}
-      <NeonCard className="p-6 mb-12">
+      <Card className="p-6 mb-12">
         <h2 className="text-lg font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div className="space-y-3">
           {product.faqs.map((faq, idx) => (
@@ -204,14 +204,14 @@ export default function ProductPage({ params: _params }: ProductPageProps) {
             </div>
           ))}
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Related */}
       <div>
         <h2 className="text-2xl font-bold text-white mb-6">Related <span className="text-[#00f5ff]">Products</span></h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {RELATED.map((rel) => (
-            <NeonCard key={rel.id} className="overflow-hidden group">
+            <Card key={rel.id} className="overflow-hidden group">
               <Link href={`/product/${rel.slug}`} className="block">
                 <div className="aspect-square overflow-hidden bg-[#0d0d15]">
                   <img src={rel.image} alt={rel.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -221,7 +221,7 @@ export default function ProductPage({ params: _params }: ProductPageProps) {
                   <span className="text-[#00f5ff] font-bold">{formatPrice(rel.price)}</span>
                 </div>
               </Link>
-            </NeonCard>
+            </Card>
           ))}
         </div>
       </div>

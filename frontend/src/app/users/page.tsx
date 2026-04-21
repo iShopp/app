@@ -1,5 +1,5 @@
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import { formatPrice, formatDate } from '@/lib/utils';
 
@@ -50,18 +50,18 @@ export default function UserDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (
-          <NeonCard key={stat.label} className="p-4">
+          <Card key={stat.label} className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-2xl">{stat.icon}</span>
               <span className="text-xs text-gray-500 uppercase tracking-wide">{stat.label}</span>
             </div>
             <p className="text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
       {/* Recent Orders */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
           <a href="/users/orders" className="text-[#00f5ff] text-sm hover:underline">View all →</a>
@@ -94,10 +94,10 @@ export default function UserDashboard() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
 
       {/* Quick Links */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Quick Links</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {quickLinks.map((link) => (
@@ -111,7 +111,7 @@ export default function UserDashboard() {
             </a>
           ))}
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

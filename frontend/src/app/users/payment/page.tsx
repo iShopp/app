@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const savedCards = [
   { id: 1, brand: 'Visa', last4: '4242', expiry: '12/26', name: 'Alex Johnson', isDefault: true },
@@ -30,7 +30,7 @@ export default function PaymentPage() {
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-white">Credit & Debit Cards</h2>
         {cards.map((card) => (
-          <NeonCard key={card.id} className="p-5">
+          <Card key={card.id} className="p-5">
             <div
               className="rounded-xl p-4 mb-4 relative overflow-hidden"
               style={{ background: `linear-gradient(135deg, ${brandColors[card.brand] || '#1a1aff'}33, #111118)`, border: '1px solid rgba(0,245,255,0.2)' }}
@@ -62,15 +62,15 @@ export default function PaymentPage() {
                 Remove
               </button>
             </div>
-          </NeonCard>
+          </Card>
         ))}
 
-        <NeonButton variant="outline" className="w-full" onClick={() => setShowForm(!showForm)}>
+        <Button variant="outline" className="w-full" onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : '+ Add New Card'}
-        </NeonButton>
+        </Button>
 
         {showForm && (
-          <NeonCard className="p-5">
+          <Card className="p-5">
             <h3 className="font-semibold text-white mb-4">Add New Card</h3>
             {/* Stripe Elements integration required — card details must NEVER be collected
                 in plain DOM inputs. Replace this placeholder with Stripe's CardElement
@@ -84,13 +84,13 @@ export default function PaymentPage() {
                 iframe — never via plain DOM inputs — to remain PCI-compliant.
               </p>
             </div>
-            <NeonButton className="w-full mt-4" disabled>Save Card</NeonButton>
-          </NeonCard>
+            <Button className="w-full mt-4" disabled>Save Card</Button>
+          </Card>
         )}
       </div>
 
       {/* PayPal */}
-      <NeonCard className="p-5">
+      <Card className="p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-3xl">🅿️</span>
@@ -99,15 +99,15 @@ export default function PaymentPage() {
               <p className="text-gray-400 text-sm">{paypalLinked ? 'alex@example.com — Connected' : 'Not connected'}</p>
             </div>
           </div>
-          <NeonButton
+          <Button
             size="sm"
             variant={paypalLinked ? 'outline' : 'primary'}
             onClick={() => setPaypalLinked(!paypalLinked)}
           >
             {paypalLinked ? 'Disconnect' : 'Connect'}
-          </NeonButton>
+          </Button>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

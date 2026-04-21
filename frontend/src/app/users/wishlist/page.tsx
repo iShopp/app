@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
 
 const initialWishlist = [
@@ -30,20 +30,20 @@ export default function WishlistPage() {
       </div>
 
       {wishlist.length === 0 ? (
-        <NeonCard className="p-12 text-center">
+        <Card className="p-12 text-center">
           <p className="text-4xl mb-3">❤️</p>
           <p className="text-gray-400">Your wishlist is empty.</p>
           <div className="mt-4">
-            <a href="/shop"><NeonButton>Browse Products</NeonButton></a>
+            <a href="/shop"><Button>Browse Products</Button></a>
           </div>
-        </NeonCard>
+        </Card>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {wishlist.map((product) => {
             const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
             const isAdded = added.includes(product.id);
             return (
-              <NeonCard key={product.id} className="p-4 flex flex-col">
+              <Card key={product.id} className="p-4 flex flex-col">
                 <div className="relative mb-3">
                   <div className="w-full h-36 rounded-lg bg-[#0d0d15] border border-[rgba(0,245,255,0.08)] flex items-center justify-center text-5xl">
                     {product.img}
@@ -69,16 +69,16 @@ export default function WishlistPage() {
                   {!product.inStock ? (
                     <p className="text-red-400 text-sm text-center py-1">Out of Stock</p>
                   ) : (
-                    <NeonButton
+                    <Button
                       className="w-full"
                       onClick={() => addToCart(product.id)}
                       disabled={isAdded}
                     >
                       {isAdded ? '✓ Added to Cart' : 'Add to Cart'}
-                    </NeonButton>
+                    </Button>
                   )}
                 </div>
-              </NeonCard>
+              </Card>
             );
           })}
         </div>

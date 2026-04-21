@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { formatDate } from '@/lib/utils';
 
 const initialCoupons = [
@@ -45,13 +45,13 @@ export default function AdminCouponsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Coupons</h1>
-        <NeonButton onClick={() => setShowForm(!showForm)}>
+        <Button onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : '+ Create Coupon'}
-        </NeonButton>
+        </Button>
       </div>
 
       {showForm && (
-        <NeonCard className="p-6">
+        <Card className="p-6">
           <h2 className="text-lg font-semibold text-white mb-4">New Coupon</h2>
           <form onSubmit={handleAdd} className="grid sm:grid-cols-3 gap-4">
             <div>
@@ -91,13 +91,13 @@ export default function AdminCouponsPage() {
                 className="w-full bg-[#0d0d15] border border-[rgba(0,245,255,0.2)] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#00f5ff] text-sm" />
             </div>
             <div className="sm:col-span-3">
-              <NeonButton type="submit" className="w-full">Create Coupon</NeonButton>
+              <Button type="submit" className="w-full">Create Coupon</Button>
             </div>
           </form>
-        </NeonCard>
+        </Card>
       )}
 
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -141,7 +141,7 @@ export default function AdminCouponsPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const suggestions = [
   {
@@ -91,10 +91,10 @@ export default function BuilderPage() {
           { label: 'Accepted', value: items.filter((s) => s.status === 'accepted').length, color: '#39ff14' },
           { label: 'Rejected', value: items.filter((s) => s.status === 'rejected').length, color: '#ff4444' },
         ].map((s) => (
-          <NeonCard key={s.label} className="p-4 text-center">
+          <Card key={s.label} className="p-4 text-center">
             <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
             <p className="text-gray-400 text-xs mt-1">{s.label}</p>
-          </NeonCard>
+          </Card>
         ))}
       </div>
 
@@ -104,7 +104,7 @@ export default function BuilderPage() {
           <h2 className="text-lg font-semibold text-white mb-3">Pending Review ({pending.length})</h2>
           <div className="space-y-4">
             {pending.map((s) => (
-              <NeonCard key={s.id} className="p-5">
+              <Card key={s.id} className="p-5">
                 <div className="flex flex-wrap items-start gap-3 mb-3">
                   <span className={`text-xs px-2 py-1 rounded-full border font-medium capitalize ${typeColors[s.type]}`}>
                     {s.type}
@@ -116,10 +116,10 @@ export default function BuilderPage() {
                 <h3 className="text-white font-semibold text-lg mb-2">{s.title}</h3>
                 <p className="text-gray-400 text-sm mb-4">{s.description}</p>
                 <div className="flex gap-3">
-                  <NeonButton size="sm" onClick={() => accept(s.id)}>✓ Accept</NeonButton>
-                  <NeonButton size="sm" variant="outline" onClick={() => reject(s.id)}>✕ Reject</NeonButton>
+                  <Button size="sm" onClick={() => accept(s.id)}>✓ Accept</Button>
+                  <Button size="sm" variant="outline" onClick={() => reject(s.id)}>✕ Reject</Button>
                 </div>
-              </NeonCard>
+              </Card>
             ))}
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function BuilderPage() {
           <h2 className="text-lg font-semibold text-white mb-3">Reviewed</h2>
           <div className="space-y-3">
             {reviewed.map((s) => (
-              <NeonCard key={s.id} className="p-4 opacity-70">
+              <Card key={s.id} className="p-4 opacity-70">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className={`text-xs px-2 py-1 rounded-full border font-medium capitalize ${typeColors[s.type]}`}>
@@ -143,7 +143,7 @@ export default function BuilderPage() {
                     {s.status}
                   </span>
                 </div>
-              </NeonCard>
+              </Card>
             ))}
           </div>
         </div>

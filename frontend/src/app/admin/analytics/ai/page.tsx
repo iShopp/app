@@ -1,4 +1,4 @@
-import NeonCard from '@/components/ui/NeonCard';
+import Card from '@/components/ui/Card';
 
 const features = [
   { name: 'Product Descriptions', requests: 1247, cost: 12.47, model: 'GPT-4o', icon: '📝', color: '#00f5ff' },

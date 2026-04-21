@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Search } from 'lucide-react';
-import NeonCard from '@/components/ui/NeonCard';
+import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 
 const BRANDS = [
@@ -50,13 +50,13 @@ export default function BrandsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
           {featured.map((brand) => (
             <Link key={brand.slug} href={`/brands/${brand.slug}`}>
-              <NeonCard className="p-4 text-center hover:scale-105 transition-transform">
+              <Card className="p-4 text-center hover:scale-105 transition-transform">
                 <div className="w-12 h-12 bg-[rgba(157,78,221,0.1)] rounded-xl flex items-center justify-center mx-auto mb-2 text-[#9d4edd] font-black text-xl">
                   {brand.name[0]}
                 </div>
                 <p className="text-white text-xs font-semibold">{brand.name}</p>
                 <p className="text-gray-600 text-[10px]">{brand.productCount} items</p>
-              </NeonCard>
+              </Card>
             </Link>
           ))}
         </div>

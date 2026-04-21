@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 export default function AffiliateSettingsPage() {
   const [profile, setProfile] = useState({
@@ -51,7 +51,7 @@ export default function AffiliateSettingsPage() {
       </div>
 
       {/* Profile */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Profile Information</h2>
         <form onSubmit={saveProfile} className="space-y-4">
           <div>
@@ -70,14 +70,14 @@ export default function AffiliateSettingsPage() {
             <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Bio</label>
             <textarea rows={3} value={profile.bio} onChange={(e) => setProfile((p) => ({ ...p, bio: e.target.value }))} className={`${inputClass} resize-none`} />
           </div>
-          <NeonButton type="submit" className="w-full">
+          <Button type="submit" className="w-full">
             {saved === 'profile' ? '✓ Saved!' : 'Save Profile'}
-          </NeonButton>
+          </Button>
         </form>
-      </NeonCard>
+      </Card>
 
       {/* Payout Settings */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Payout Settings</h2>
         <form onSubmit={savePayout} className="space-y-4">
           <div>
@@ -99,14 +99,14 @@ export default function AffiliateSettingsPage() {
             <input type="number" min="20" max="500" value={payout.threshold} onChange={(e) => setPayout((p) => ({ ...p, threshold: e.target.value }))} className={inputClass} />
             <p className="text-gray-500 text-xs mt-1">Minimum $20. You'll be paid automatically when balance exceeds this amount.</p>
           </div>
-          <NeonButton type="submit" className="w-full">
+          <Button type="submit" className="w-full">
             {saved === 'payout' ? '✓ Saved!' : 'Save Payout Settings'}
-          </NeonButton>
+          </Button>
         </form>
-      </NeonCard>
+      </Card>
 
       {/* Notifications */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Email Notifications</h2>
         <div className="space-y-4">
           {[
@@ -128,7 +128,7 @@ export default function AffiliateSettingsPage() {
             </div>
           ))}
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

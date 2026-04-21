@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NeonCard from '@/components/ui/NeonCard';
-import NeonButton from '@/components/ui/NeonButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const existingLinks = [
   { id: 1, url: 'https://ishopneonfx.com/?ref=JOHN20', campaign: 'General', clicks: 1234, conversions: 89, earnings: 134.50 },
@@ -40,7 +40,7 @@ export default function AffiliateLinksPage() {
       <h1 className="text-2xl font-bold text-white">Links & Campaigns</h1>
 
       {/* Create Form */}
-      <NeonCard className="p-6">
+      <Card className="p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Create New Link</h2>
         <form onSubmit={handleCreate} className="grid sm:grid-cols-3 gap-4">
           <div className="sm:col-span-2">
@@ -65,13 +65,13 @@ export default function AffiliateLinksPage() {
             />
           </div>
           <div className="sm:col-span-3">
-            <NeonButton type="submit" className="w-full">Generate Link</NeonButton>
+            <Button type="submit" className="w-full">Generate Link</Button>
           </div>
         </form>
-      </NeonCard>
+      </Card>
 
       {/* Links Table */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="p-4 border-b border-[rgba(0,245,255,0.1)]">
           <h2 className="text-lg font-semibold text-white">Your Links ({links.length})</h2>
         </div>
@@ -107,7 +107,7 @@ export default function AffiliateLinksPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

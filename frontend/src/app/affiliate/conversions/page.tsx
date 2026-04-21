@@ -1,4 +1,4 @@
-import NeonCard from '@/components/ui/NeonCard';
+import Card from '@/components/ui/Card';
 import { formatDate } from '@/lib/utils';
 
 const conversions = [
@@ -29,22 +29,22 @@ export default function ConversionsPage() {
 
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
-        <NeonCard className="p-4">
+        <Card className="p-4">
           <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Total Commissions</p>
           <p className="text-2xl font-bold text-[#00f5ff]">${total.toFixed(2)}</p>
-        </NeonCard>
-        <NeonCard className="p-4">
+        </Card>
+        <Card className="p-4">
           <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Paid Out</p>
           <p className="text-2xl font-bold text-[#39ff14]">${paid.toFixed(2)}</p>
-        </NeonCard>
-        <NeonCard className="p-4">
+        </Card>
+        <Card className="p-4">
           <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Pending</p>
           <p className="text-2xl font-bold text-yellow-400">${pending.toFixed(2)}</p>
-        </NeonCard>
+        </Card>
       </div>
 
       {/* Conversions Table */}
-      <NeonCard className="p-0 overflow-hidden">
+      <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -72,7 +72,7 @@ export default function ConversionsPage() {
             </tbody>
           </table>
         </div>
-      </NeonCard>
+      </Card>
     </div>
   );
 }

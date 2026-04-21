@@ -9,9 +9,9 @@
   ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝          ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝     ╚═╝  ╚═╝
 ```
 
-# iSHOP NEON FX Marketplace
+# iSHOP Marketplace
 
-**A full-stack dropshipping automation platform with a cyberpunk NEON FX design system.**
+**A full-stack dropshipping automation platform with a professional marketplace UI/UX.**
 
 [![CI](https://github.com/iShopp/app/actions/workflows/ci.yml/badge.svg)](https://github.com/iShopp/app/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -26,6 +26,7 @@
 
 ## Table of Contents
 
+- [Latest Marketplace Redesign](#latest-marketplace-redesign)
 - [UI Screenshots](#ui-screenshots)
 - [Features](#features)
 - [Architecture](#architecture)
@@ -45,9 +46,40 @@
 
 ---
 
+## Latest Marketplace Redesign
+
+### New UI screenshots
+
+- Landing page: https://github.com/user-attachments/assets/1f91c561-7679-47d0-b47a-21f2ae4f8a0f
+- User dashboard: https://github.com/user-attachments/assets/4455c891-f75b-473d-9a55-6e20d3196b66
+- Admin dashboard: https://github.com/user-attachments/assets/6009d7c7-99ef-4a5d-bffe-81ed74eeb614
+- Affiliate dashboard: https://github.com/user-attachments/assets/59ab31e1-fe90-4560-9d10-8f9fa5e33c46
+
+### Frontend architecture (high-level)
+
+```mermaid
+flowchart TD
+  A[Next.js App Router] --> B[Shared Marketplace UI Components]
+  A --> C[Landing + Shop + Product + Cart + Checkout]
+  A --> D[Dashboard Layouts]
+  D --> E[User Dashboard]
+  D --> F[Admin Dashboard]
+  D --> G[Affiliate Dashboard]
+  C --> H[Hooks and API Clients]
+  H --> I[Backend APIs (unchanged)]
+```
+
+### Enterprise functions included
+
+- Operator alerts (`operatorAlert`) for error codes and latency traces.
+- Enterprise logging (`enterpriseLog`, `logRpcRetry`) for session usage and retry labels.
+- Permissionless repair hook (`usePermissionlessRepair`) for conflict-safe state merges in scaffolds.
+
+---
+
 ## UI Screenshots
 
-> **Design System:** Dark theme (`#0a0a0f` base), cyan neon accents (`#00f5ff`), purple neon (`#bf00ff`), glassmorphism cards, and animated gradient borders.
+> **Design System:** Neutral marketplace styling (white/gray foundation) with orange/blue CTA accents, trust signals, and clean product-first layouts.
 
 ### 🏠 Homepage — Hero / Landing
 

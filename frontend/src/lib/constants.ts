@@ -1,8 +1,8 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
 export const APP_NAME = 'iSHOP';
-export const APP_TAGLINE = 'NEON FX Marketplace';
-export const APP_DESCRIPTION = 'iSHOP NEON FX Marketplace – The Future of Shopping';
+export const APP_TAGLINE = 'Professional Marketplace';
+export const APP_DESCRIPTION = 'iSHOP marketplace for trusted cross-border shopping';
 
 export const MARKETPLACES = [
   { id: 'temu', name: 'Temu', color: '#ff6900', slug: 'temu' },
@@ -16,7 +16,7 @@ export const MARKETPLACE_COLORS: Record<string, string> = {
   aliexpress: '#ff4747',
   amazon: '#ff9900',
   ebay: '#0064d2',
-  manual: '#00f5ff',
+  manual: '#2563eb',
 };
 
 export const ORDER_STATUSES = [
