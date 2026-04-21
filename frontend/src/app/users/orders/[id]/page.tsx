@@ -1,6 +1,7 @@
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { formatPrice, formatDate } from '@/lib/utils';
+import Link from 'next/link';
 
 const order = {
   id: 'ORD-002',
@@ -44,11 +45,11 @@ const statusColors: Record<string, string> = {
 
 export default async function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
   // id will be used to fetch order from API; static data shown until backend is wired
-  const { id } = await params; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const { id: _id } = await params;
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center gap-3">
-        <a href="/users/orders" className="text-[#00f5ff] hover:underline text-sm">← Back to Orders</a>
+        <Link href="/users/orders" className="text-[#00f5ff] hover:underline text-sm">← Back to Orders</Link>
       </div>
 
       {/* Header */}
@@ -150,9 +151,9 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
       </div>
 
       <div className="flex gap-3">
-        <a href="/users/track">
+        <Link href="/users/track">
           <Button>Track Shipment</Button>
-        </a>
+        </Link>
         <Button variant="outline">Download Invoice</Button>
       </div>
     </div>

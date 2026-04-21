@@ -24,6 +24,10 @@ export default function CartPage() {
   };
 
   const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
+  const drawerItems = useMemo(
+    () => items.map((item) => ({ id: item.id, product: { name: item.name }, quantity: item.quantity, price: item.price })),
+    [items]
+  );
 
   if (items.length === 0) {
     return (
@@ -77,7 +81,7 @@ export default function CartPage() {
       <CartDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        items={items.map((item) => ({ id: item.id, product: { name: item.name }, quantity: item.quantity, price: item.price }))}
+        items={drawerItems}
       />
     </div>
   );

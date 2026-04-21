@@ -55,7 +55,7 @@ export default function EarningsPage() {
 
         {requested && (
           <div className="mt-4 p-3 bg-green-400/10 border border-green-400/30 rounded-lg">
-            <p className="text-green-400 text-sm">✓ Payout request submitted! You'll receive payment within 3-5 business days.</p>
+            <p className="text-green-400 text-sm">✓ Payout request submitted! You&apos;ll receive payment within 3-5 business days.</p>
           </div>
         )}
       </div>

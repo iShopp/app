@@ -7,27 +7,31 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
 import { enterpriseLog, logRpcRetry, operatorAlert } from '@/lib/enterprise';
+import { isValidEmail } from '@/lib/validation';
 
 const ORDER_ITEMS = [
   { name: 'Wireless Earbuds Pro X', price: 29.99, qty: 1 },
-  { name: 'Smart LED Strip 5m', price: 31.98, qty: 2 },
+  { name: 'Smart LED Strip 5m', price: 15.99, qty: 2 },
 ];
 
-const subtotal = ORDER_ITEMS.reduce((s, i) => s + i.price, 0);
+const subtotal = ORDER_ITEMS.reduce((s, i) => s + i.price * i.qty, 0);
 const shipping = 0;
 const total = subtotal + shipping;
 
 export default function CheckoutPage() {
   const [done, setDone] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleOrder = async (values: Record<string, string>) => {
+    setSubmitError('');
     enterpriseLog({ type: 'session_key_usage', message: `Checkout by ${values.email}` });
     logRpcRetry('checkout.submit', 0);
 
     await new Promise((r) => setTimeout(r, 600));
 
-    if (!values.email.includes('@')) {
+    if (!isValidEmail(values.email)) {
       operatorAlert('CHK-VAL-001', 'Checkout validation failed');
+      setSubmitError('Please enter a valid email address.');
       return;
     }
 
@@ -51,6 +55,7 @@ export default function CheckoutPage() {
       <div className="lg:col-span-2">
         <div className="mb-4 flex items-center gap-2 text-slate-300"><Lock className="h-4 w-4" /> Secure checkout</div>
         <Card className="p-5">
+          {submitError ? <p className="mb-3 text-sm text-red-500">{submitError}</p> : null}
           <CheckoutForm onSubmit={handleOrder} />
         </Card>
       </div>

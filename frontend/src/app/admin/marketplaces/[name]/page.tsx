@@ -1,6 +1,7 @@
 'use client';
 
 import { use, useState } from 'react';
+import Link from 'next/link';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 
@@ -34,7 +35,7 @@ export default function MarketplaceConfigPage({ params }: { params: Promise<{ na
   return (
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center gap-3">
-        <a href="/admin/marketplaces" className="text-[#00f5ff] hover:underline text-sm">← Marketplaces</a>
+        <Link href="/admin/marketplaces" className="text-[#00f5ff] hover:underline text-sm">← Marketplaces</Link>
       </div>
 
       <div className="flex items-center gap-4">

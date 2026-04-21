@@ -17,7 +17,7 @@ export default function CartDrawer({ open, onClose, items }: CartDrawerProps) {
 
   return (
     <div className={`fixed inset-0 z-50 transition ${open ? 'pointer-events-auto' : 'pointer-events-none'}`}>
-      <button className={`absolute inset-0 bg-slate-900/40 transition-opacity ${open ? 'opacity-100' : 'opacity-0'}`} onClick={onClose} />
+      <button aria-label="Close cart drawer" className={`absolute inset-0 bg-slate-900/40 transition-opacity ${open ? 'opacity-100' : 'opacity-0'}`} onClick={onClose} />
       <aside className={`absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-xl transition-transform ${open ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex items-center justify-between border-b border-slate-200 p-4">
           <h3 className="text-lg font-semibold text-slate-900">Your Cart</h3>

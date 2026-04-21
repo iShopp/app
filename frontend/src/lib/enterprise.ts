@@ -9,10 +9,8 @@ export type EnterpriseLogEvent = {
 };
 
 export function enterpriseLog(event: EnterpriseLogEvent) {
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line no-console
-    console.info('[enterprise-log]', event);
-  }
+  // eslint-disable-next-line no-console
+  console.info('[enterprise-log]', event);
 }
 
 export function operatorAlert(code: string, message: string, latencyMs?: number) {

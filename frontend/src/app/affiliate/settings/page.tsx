@@ -97,7 +97,7 @@ export default function AffiliateSettingsPage() {
           <div>
             <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wide">Payout Threshold ($)</label>
             <input type="number" min="20" max="500" value={payout.threshold} onChange={(e) => setPayout((p) => ({ ...p, threshold: e.target.value }))} className={inputClass} />
-            <p className="text-gray-500 text-xs mt-1">Minimum $20. You'll be paid automatically when balance exceeds this amount.</p>
+            <p className="text-gray-500 text-xs mt-1">Minimum $20. You&apos;ll be paid automatically when balance exceeds this amount.</p>
           </div>
           <Button type="submit" className="w-full">
             {saved === 'payout' ? '✓ Saved!' : 'Save Payout Settings'}

@@ -2,6 +2,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import { formatPrice, formatDate } from '@/lib/utils';
+import Link from 'next/link';
 
 const stats = [
   { label: 'Total Orders', value: '24', icon: '📦', color: '#00f5ff' },
@@ -64,7 +65,7 @@ export default function UserDashboard() {
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
-          <a href="/users/orders" className="text-[#00f5ff] text-sm hover:underline">View all →</a>
+          <Link href="/users/orders" className="text-[#00f5ff] text-sm hover:underline">View all →</Link>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -101,14 +102,14 @@ export default function UserDashboard() {
         <h2 className="text-lg font-semibold text-white mb-4">Quick Links</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {quickLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="flex flex-col items-center gap-2 p-3 rounded-lg border border-[rgba(0,245,255,0.1)] bg-[#0d0d15] hover:border-[rgba(0,245,255,0.4)] hover:bg-[rgba(0,245,255,0.05)] transition-all group"
             >
               <span className="text-2xl">{link.icon}</span>
               <span className="text-xs text-gray-400 group-hover:text-[#00f5ff] transition-colors text-center">{link.label}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </Card>

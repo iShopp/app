@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
@@ -34,7 +35,7 @@ export default function WishlistPage() {
           <p className="text-4xl mb-3">❤️</p>
           <p className="text-gray-400">Your wishlist is empty.</p>
           <div className="mt-4">
-            <a href="/shop"><Button>Browse Products</Button></a>
+            <Link href="/shop"><Button>Browse Products</Button></Link>
           </div>
         </Card>
       ) : (
