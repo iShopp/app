@@ -6,6 +6,16 @@ import { authApi } from '@/lib/api';
 
 const AUTH_STORAGE_KEY = 'ishop_auth';
 
+const VALID_ROLES = ['customer', 'admin', 'affiliate'] as const;
+
+function normalizeRole(raw: string): User['role'] {
+  const lower = raw.toLowerCase();
+  if ((VALID_ROLES as readonly string[]).includes(lower)) {
+    return lower as User['role'];
+  }
+  return 'customer';
+}
+
 interface AuthState {
   user: User | null;
   token: string | null;
@@ -40,7 +50,7 @@ export function useAuth() {
       const { access_token, user } = response.data;
       const normalizedUser: User = {
         ...user,
-        role: (user.role as string).toLowerCase() as User['role'],
+        role: normalizeRole(user.role as string),
       };
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: normalizedUser, token: access_token }));
       setState({ user: normalizedUser, token: access_token, isLoading: false });
@@ -59,7 +69,7 @@ export function useAuth() {
       const { access_token, user } = response.data;
       const normalizedUser: User = {
         ...user,
-        role: (user.role as string).toLowerCase() as User['role'],
+        role: normalizeRole(user.role as string),
       };
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: normalizedUser, token: access_token }));
       setState({ user: normalizedUser, token: access_token, isLoading: false });
