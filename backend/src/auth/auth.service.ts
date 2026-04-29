@@ -60,9 +60,20 @@ export class AuthService {
   }
 
   async getProfile(userId: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        avatar: true,
+        role: true,
+        phone: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
     if (!user) throw new UnauthorizedException('User not found');
-    const { password: _pw, ...result } = user;
-    return result;
+    return user;
   }
 }

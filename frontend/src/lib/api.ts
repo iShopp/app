@@ -133,7 +133,7 @@ export const authApi = {
       body: JSON.stringify(data),
     }),
   me: (token: string) =>
-    fetchAPI<User>('/auth/me', {
+    fetchAPI<BackendUser>('/auth/me', {
       headers: { Authorization: `Bearer ${token}` },
     }),
 };
