@@ -16,6 +16,7 @@ import { WorkersModule } from './workers/workers.module';
 import { ProxyModule } from './proxy/proxy.module';
 import { AiModule } from './ai/ai.module';
 import { BuilderModule } from './builder/builder.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { BuilderModule } from './builder/builder.module';
     ProxyModule,
     AiModule,
     BuilderModule,
+    HealthModule,
   ],
 })
 export class AppModule {}

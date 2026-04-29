@@ -118,17 +118,19 @@ export const cartApi = {
 // Auth
 export const authApi = {
   signIn: (email: string, password: string) =>
-    fetchAPI<{ user: User; token: string }>('/auth/signin', {
+    fetchAPI<{ user: User; access_token: string }>('/auth/signin', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     }),
   signUp: (data: { name: string; email: string; password: string }) =>
-    fetchAPI<{ user: User; token: string }>('/auth/signup', {
+    fetchAPI<{ user: User; access_token: string }>('/auth/signup', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-  signOut: () => fetchAPI<void>('/auth/signout', { method: 'POST' }),
-  me: () => fetchAPI<User>('/auth/me'),
+  me: (token: string) =>
+    fetchAPI<User>('/auth/me', {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
 };
 
 // Coupons
