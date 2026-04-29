@@ -23,12 +23,13 @@ async function fetchAPI<T>(
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
   const url = `${API_URL}${endpoint}`;
+  const { headers: optHeaders, ...restOptions } = options;
   const response = await fetch(url, {
+    ...restOptions,
     headers: {
       'Content-Type': 'application/json',
-      ...options.headers,
+      ...optHeaders,
     },
-    ...options,
   });
 
   if (!response.ok) {
@@ -116,14 +117,18 @@ export const cartApi = {
 };
 
 // Auth
+// BackendUser: the user shape returned by the NestJS auth endpoints.
+// The role field arrives as an uppercase enum string (e.g. 'CUSTOMER', 'ADMIN').
+type BackendUser = Omit<User, 'role'> & { role: string };
+
 export const authApi = {
   signIn: (email: string, password: string) =>
-    fetchAPI<{ user: User; access_token: string }>('/auth/signin', {
+    fetchAPI<{ user: BackendUser; access_token: string }>('/auth/signin', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     }),
   signUp: (data: { name: string; email: string; password: string }) =>
-    fetchAPI<{ user: User; access_token: string }>('/auth/signup', {
+    fetchAPI<{ user: BackendUser; access_token: string }>('/auth/signup', {
       method: 'POST',
       body: JSON.stringify(data),
     }),

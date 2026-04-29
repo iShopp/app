@@ -50,7 +50,7 @@ export function useAuth() {
       const { access_token, user } = response.data;
       const normalizedUser: User = {
         ...user,
-        role: normalizeRole(user.role as string),
+        role: normalizeRole(user.role),
       };
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: normalizedUser, token: access_token }));
       setState({ user: normalizedUser, token: access_token, isLoading: false });
@@ -69,7 +69,7 @@ export function useAuth() {
       const { access_token, user } = response.data;
       const normalizedUser: User = {
         ...user,
-        role: normalizeRole(user.role as string),
+        role: normalizeRole(user.role),
       };
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: normalizedUser, token: access_token }));
       setState({ user: normalizedUser, token: access_token, isLoading: false });
