@@ -41,9 +41,9 @@ export class AuthController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get current authenticated user' })
+  @ApiOperation({ summary: 'Get current authenticated user profile' })
   @ApiResponse({ status: 200, description: 'Current user profile' })
   getMe(@Request() req: any) {
-    return req.user;
+    return this.authService.getProfile(req.user.id);
   }
 }

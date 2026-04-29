@@ -2,8 +2,19 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import type { User } from '@/types';
+import { authApi } from '@/lib/api';
 
 const AUTH_STORAGE_KEY = 'ishop_auth';
+
+const VALID_ROLES = ['customer', 'admin', 'affiliate'] as const;
+
+function normalizeRole(raw: string): User['role'] {
+  const lower = raw.toLowerCase();
+  if ((VALID_ROLES as readonly string[]).includes(lower)) {
+    return lower as User['role'];
+  }
+  return 'customer';
+}
 
 interface AuthState {
   user: User | null;
@@ -33,53 +44,40 @@ export function useAuth() {
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    // FIXME: Mock auth only — NEVER ship to production.
-    // Role is assigned based on email string match which is insecure.
-    // Replace with a real API call that returns the authenticated user's role from the backend.
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('Mock authentication must not be used in production. Connect to the real auth API.');
-    }
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
-      const mockUser: User = {
-        id: '1',
-        email,
-        name: email.split('@')[0],
-        role: email.includes('admin') ? 'admin' : 'customer',
-        createdAt: new Date().toISOString(),
+      const response = await authApi.signIn(email, password);
+      const { access_token, user } = response.data;
+      const normalizedUser: User = {
+        ...user,
+        role: normalizeRole(user.role),
       };
-      const mockToken = `mock-token-${Date.now()}`;
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: mockUser, token: mockToken }));
-      setState({ user: mockUser, token: mockToken, isLoading: false });
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: normalizedUser, token: access_token }));
+      setState({ user: normalizedUser, token: access_token, isLoading: false });
       return { success: true };
-    } catch {
+    } catch (err: unknown) {
       setState((prev) => ({ ...prev, isLoading: false }));
-      return { success: false, error: 'Sign in failed' };
+      const message = err instanceof Error ? err.message : 'Sign in failed';
+      return { success: false, error: message };
     }
   }, []);
 
-  const signUp = useCallback(async (name: string, email: string, _password: string) => {
-    // FIXME: Mock auth only — NEVER ship to production.
-    // Replace with a real API call.
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('Mock authentication must not be used in production. Connect to the real auth API.');
-    }
+  const signUp = useCallback(async (name: string, email: string, password: string) => {
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
-      const mockUser: User = {
-        id: String(Date.now()),
-        email,
-        name,
-        role: 'customer',
-        createdAt: new Date().toISOString(),
+      const response = await authApi.signUp({ name, email, password });
+      const { access_token, user } = response.data;
+      const normalizedUser: User = {
+        ...user,
+        role: normalizeRole(user.role),
       };
-      const mockToken = `mock-token-${Date.now()}`;
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: mockUser, token: mockToken }));
-      setState({ user: mockUser, token: mockToken, isLoading: false });
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ user: normalizedUser, token: access_token }));
+      setState({ user: normalizedUser, token: access_token, isLoading: false });
       return { success: true };
-    } catch {
+    } catch (err: unknown) {
       setState((prev) => ({ ...prev, isLoading: false }));
-      return { success: false, error: 'Sign up failed' };
+      const message = err instanceof Error ? err.message : 'Sign up failed';
+      return { success: false, error: message };
     }
   }, []);
 
