@@ -328,7 +328,7 @@ flowchart TD
 │   │ (Prisma ORM) │  │  5 worker queues     │                             │
 │   └──────────────┘  └─────────────────────┘                             │
 │                                                                          │
-│   External: AliExpress · Temu · Amazon PAAPI · eBay · **Lazada** · OpenAI · Stripe · Resend            │
+│   External: AliExpress · Temu · Amazon PAAPI · eBay · Lazada · OpenAI · Stripe · Resend            │
 │                                                                          │
 └─────────────────────────────────────────────────────────────────────────┘
 ```

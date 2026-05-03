@@ -27,7 +27,14 @@ describe('AuthService', () => {
   };
 
   const mockConfig = {
-    get: jest.fn().mockReturnValue(undefined),
+    get: jest.fn((key: string) => {
+      const values: Record<string, string> = {
+        JWT_REFRESH_SECRET: 'test-refresh-secret',
+        JWT_REFRESH_EXPIRES_IN: '30d',
+        FRONTEND_URL: 'http://localhost:3000',
+      };
+      return values[key] ?? undefined;
+    }),
   };
 
   beforeEach(async () => {
