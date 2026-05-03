@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
@@ -17,10 +19,21 @@ import { ProxyModule } from './proxy/proxy.module';
 import { AiModule } from './ai/ai.module';
 import { BuilderModule } from './builder/builder.module';
 import { HealthModule } from './health/health.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { WishlistModule } from './wishlist/wishlist.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { PaymentsModule } from './payments/payments.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 60,
+      },
+    ]),
     PrismaModule,
     AuthModule,
     UsersModule,
@@ -38,6 +51,17 @@ import { HealthModule } from './health/health.module';
     AiModule,
     BuilderModule,
     HealthModule,
+    ReviewsModule,
+    WishlistModule,
+    NotificationsModule,
+    PaymentsModule,
+    EmailModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

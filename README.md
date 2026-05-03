@@ -48,7 +48,18 @@
 
 ## Latest Marketplace Redesign
 
-### New UI screenshots
+### Enhanced UI — Premium Dark / Glow Theme
+
+The interface was redesigned from a neutral light theme to a **premium dark marketplace** with:
+
+- **Flash-glow CTAs** — the hero "Start Shopping" button pulses with an orange glow animation (`animate-flash-glow`)
+- **Neon accents** — orange (`#f97316`) primary + cyan (`#22d3ee`) secondary on `#020617` background
+- **Glassmorphism cards** — `.glass` utility with `backdrop-filter: blur(16px)` and subtle border
+- **Skeleton loaders** — shimmer `.skeleton` class for all async states
+- **Glow tabs** — `.glow-tab` class with an underline glow on active/hover
+- **Mobile-first** — bottom navigation on `< md`, touch-friendly tap targets throughout
+
+### New screenshots (live links)
 
 - Landing page: https://github.com/user-attachments/assets/1f91c561-7679-47d0-b47a-21f2ae4f8a0f
 - User dashboard: https://github.com/user-attachments/assets/4455c891-f75b-473d-9a55-6e20d3196b66
@@ -66,20 +77,16 @@ flowchart TD
   D --> F[Admin Dashboard]
   D --> G[Affiliate Dashboard]
   C --> H[Hooks and API Clients]
-  H --> I[Backend APIs (unchanged)]
+  H --> I[Backend APIs]
+  A --> J[AuthProvider + ToastProvider]
+  J --> K[ProtectedRoute HOC]
 ```
-
-### Enterprise functions included
-
-- Operator alerts (`operatorAlert`) for error codes and latency traces.
-- Enterprise logging (`enterpriseLog`, `logRpcRetry`) for session usage and retry labels.
-- Permissionless repair hook (`usePermissionlessRepair`) for conflict-safe state merges in scaffolds.
 
 ---
 
 ## UI Screenshots
 
-> **Design System:** Neutral marketplace styling (white/gray foundation) with orange/blue CTA accents, trust signals, and clean product-first layouts.
+> **Design System:** Premium dark marketplace — `#020617` base, orange (`#f97316`) + cyan (`#22d3ee`) neon accents, glassmorphism cards, flash-glow animated CTAs, and skeleton loading states. Mobile-first with bottom navigation on small screens.
 
 ### 🏠 Homepage — Hero / Landing
 
@@ -87,22 +94,26 @@ flowchart TD
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  ⚡ iSHOP                                      🛒  Sign In  Sign Up     │
 ├─────────────────────────────────────────────────────────────────────────┤
+│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  │
+│  ░                                                                    ░  │
+│  ░   ⚡ Deals refreshed every hour                                    ░  │
+│  ░                                                                    ░  │
+│  ░   Shop Global.  ✨ Pay Less.                                        ░  │
+│  ░   ─────────────────────────────                                    ░  │
+│  ░   Curated products from Temu, AliExpress, Amazon, eBay & Lazada    ░  │
+│  ░                                                                    ░  │
+│  ░   [◀━━ Start Shopping (glow) ━━▶]   [Today's Deals]               ░  │
+│  ░                                                                    ░  │
+│  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  │
 │                                                                          │
-│           ╔══════════════════════════════════════════╗                  │
-│           ║  DISCOVER THE FUTURE                     ║                  │
-│           ║  OF SHOPPING                             ║                  │
-│           ║  ─────────────────                       ║                  │
-│           ║  Curated products from global            ║                  │
-│           ║  marketplaces at the best prices         ║                  │
-│           ║                                          ║                  │
-│           ║  [◀ SHOP NOW ▶]  [Explore Deals]        ║                  │
-│           ╚══════════════════════════════════════════╝                  │
+│  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐            │
+│  │ 🔴 temu  │  │ 🔵 ali   │  │ 🟠 amz   │  │ 🟣 lazada│  Trending   │
+│  │ $29.99   │  │ $15.99   │  │ $24.99   │  │ $39.99   │            │
+│  └───────────┘  └───────────┘  └───────────┘  └───────────┘            │
 │                                                                          │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐                   │
-│  │ PRODUCT │  │ PRODUCT │  │ PRODUCT │  │ PRODUCT │   Featured         │
-│  │ ──────  │  │ ──────  │  │ ──────  │  │ ──────  │                   │
-│  │ $29.99  │  │ $49.99  │  │ $19.99  │  │ $89.99  │                   │
-│  └─────────┘  └─────────┘  └─────────┘  └─────────┘                   │
+│  ┌──────────────────────┐  ┌──────────────────────┐  ┌────────────────┐ │
+│  │ 🛡 Buyer Protection  │  │ 📦 Live Tracking     │  │ 💳 Stripe Pay │ │
+│  └──────────────────────┘  └──────────────────────┘  └────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -209,16 +220,18 @@ flowchart TD
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  Search Marketplace Products                                             │
 │                                                                          │
-│  ┌─────────────────────────────────────────────┐  [AliExpress ▼]  [🔍] │
-│  │ Search products (e.g. wireless headphones)  │                        │
-│  └─────────────────────────────────────────────┘                        │
+│  ┌──────────────────────────────────────────┐  [AliExpress ▼]  [🔍]    │
+│  │ Search products (e.g. wireless headphones)│                          │
+│  └──────────────────────────────────────────┘                          │
+│                                                                          │
+│  Supported: AliExpress · Temu · Amazon · eBay · Lazada                  │
 │                                                                          │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐                  │
-│  │  AliExpress  │  │    Amazon    │  │     Temu     │                  │
+│  │  AliExpress  │  │    Amazon    │  │    Lazada    │                  │
 │  │ [image]      │  │ [image]      │  │ [image]      │                  │
-│  │ Wireless     │  │ Premium      │  │ Budget        │                  │
-│  │ Headphones   │  │ Headphones   │  │ Earbuds       │                  │
-│  │ 🌐 $12.99   │  │ 🌐 $89.99   │  │ 🌐 $8.99    │                  │
+│  │ Wireless     │  │ Premium      │  │ Smart Watch   │                  │
+│  │ Headphones   │  │ Headphones   │  │              │                  │
+│  │ 🌐 $12.99   │  │ 🌐 $89.99   │  │ 🌐 $29.99   │                  │
 │  │ [+ Import]   │  │ [+ Import]   │  │ [+ Import]   │                  │
 │  └──────────────┘  └──────────────┘  └──────────────┘                  │
 └─────────────────────────────────────────────────────────────────────────┘
@@ -254,14 +267,19 @@ flowchart TD
 
 | Feature | Description |
 |---------|-------------|
-| 🎨 NEON FX Design | Cyberpunk dark theme with cyan/purple neon accents and glassmorphism |
-| 📱 Responsive PWA | Mobile-first layout, installable as a Progressive Web App |
-| 🛒 Cart & Checkout | Persistent cart (localStorage), multi-step checkout, coupon codes |
+| 🎨 Premium Glow UI | Dark theme with orange/blue neon accents, glassmorphism, and flash-glow animations |
+| 📱 Responsive PWA | Mobile-first layout with bottom navigation, installable as a Progressive Web App |
+| 🛒 Cart & Checkout | Persistent cart (localStorage), multi-step checkout, coupon codes, Stripe integration |
 | 🔍 Product Search | Debounced search with filters, sorting, and marketplace source filter |
 | 🏷️ Categories & Brands | Browsable taxonomy with dedicated listing pages |
-| ❤️ Wishlist | Save-for-later, shareable lists |
+| ❤️ Wishlist | Save-for-later with backend persistence (per-user API) |
+| ⭐ Reviews & Ratings | Product reviews with star rating UI; rating aggregated automatically |
 | 👤 User Accounts | Order history, address book, payment methods, settings |
-| 🤝 Affiliate Portal | Referral links, commission tracking, banner downloads |
+| 🤝 Affiliate Portal | Referral links, commission tracking, payout requests |
+| 🔔 Notifications | In-app notification centre with mark-read |
+| 🔐 Auth Flows | Sign-in, sign-up, refresh tokens, forgot/reset password, email verification |
+| 🛡️ Protected Routes | Role-based `ProtectedRoute` HOC for customer / affiliate / admin areas |
+| 🗺️ SEO | `sitemap.xml` + `robots.txt` generated via Next.js Metadata API |
 
 ### Admin Panel
 
@@ -269,13 +287,17 @@ flowchart TD
 |---------|-------------|
 | 📦 Product Management | CRUD, bulk import from marketplaces, variant/image management |
 | 🛒 Order Management | Status tracking, supplier fulfillment, timeline |
-| 💹 Dynamic Pricing | Rule-based markup engine (%, fixed, per-marketplace) |
-| 🤖 Automation | BullMQ job queues — price sync, stock sync, order fulfillment |
-| 🌐 Marketplace Proxy | Unified search across AliExpress, Temu, Amazon, eBay |
-| 🧠 AI Builder | OpenAI-powered store/product description generator |
+| 💹 Dynamic Pricing | Rule-based markup engine (%, fixed, per-marketplace) — configurable 10–20%+ |
+| 🤖 Automation | BullMQ job queues — price sync, stock sync, order fulfillment, image optimisation |
+| 🌐 Marketplace Proxy | Unified search across AliExpress, Temu, Amazon, eBay, **Lazada** |
+| 🧠 AI Builder | OpenAI gpt-4o-mini — product descriptions, SEO tags, FAQs, pricing strategy |
 | 📈 Analytics | Revenue, orders, users KPIs with AI-powered insights |
-| 🎫 Coupons | % off, fixed, free shipping coupons with usage limits |
+| 🎫 Coupons | % off, fixed, free-shipping coupons with usage limits |
 | 🔖 Banners | Promotional banners with position targeting |
+| 💳 Payments | Stripe payment intents, webhook handler, PaymentStatus tracking |
+| 📧 Email Templates | Resend-powered transactional emails — order, shipping, welcome, password reset |
+| 🔔 Notifications | Admin-creatable in-app notifications for users |
+| ⚡ Rate Limiting | Global `ThrottlerGuard` — 60 requests / 60 s per IP |
 
 ---
 
@@ -306,7 +328,7 @@ flowchart TD
 │   │ (Prisma ORM) │  │  5 worker queues     │                             │
 │   └──────────────┘  └─────────────────────┘                             │
 │                                                                          │
-│   External: AliExpress · Temu · Amazon PAAPI · eBay · OpenAI            │
+│   External: AliExpress · Temu · Amazon PAAPI · eBay · Lazada · OpenAI · Stripe · Resend            │
 │                                                                          │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -395,11 +417,18 @@ app/
 │   │   │   │   ├── Footer.tsx        # Site footer
 │   │   │   │   └── MobileNav.tsx     # Mobile bottom navigation
 │   │   │   ├── ui/
-│   │   │   │   ├── NeonButton.tsx    # Animated neon CTA button
-│   │   │   │   ├── NeonCard.tsx      # Glassmorphism card with neon border
+│   │   │   │   ├── Button.tsx        # Primary / ghost / outline button variants
+│   │   │   │   ├── Card.tsx          # Surface card with glow border
 │   │   │   │   ├── ProductCard.tsx   # Product tile with add-to-cart
 │   │   │   │   ├── Badge.tsx         # Status/label badge
-│   │   │   │   └── LoadingSpinner.tsx
+│   │   │   │   ├── LoadingSpinner.tsx
+│   │   │   │   ├── RatingStars.tsx   # 5-star display
+│   │   │   │   ├── ReviewList.tsx    # Review list renderer
+│   │   │   │   ├── TrustBadge.tsx    # Trust signal badges
+│   │   │   │   ├── Toast.tsx         # Toast notification provider (4 types, auto-dismiss)
+│   │   │   │   └── WriteReview.tsx   # Interactive 5-star review form
+│   │   │   ├── auth/
+│   │   │   │   └── ProtectedRoute.tsx # Role-based HOC with loading state
 │   │   │   ├── admin/
 │   │   │   │   ├── KPICard.tsx
 │   │   │   │   └── Sidebar.tsx
@@ -408,14 +437,15 @@ app/
 │   │   │   └── users/
 │   │   │       └── Sidebar.tsx
 │   │   ├── hooks/
-│   │   │   ├── useAuth.ts    # JWT auth state → localStorage (mock in dev, real API in prod)
-│   │   │   └── useCart.ts    # Cart state → localStorage, deduplicated state updates
+│   │   │   ├── useAuth.ts    # Standalone auth hook (legacy — prefer AuthContext)
+│   │   │   └── useCart.ts    # Cart state → localStorage, deduplicated
 │   │   ├── lib/
-│   │   │   ├── api.ts        # Axios API client (base URL from NEXT_PUBLIC_API_URL)
-│   │   │   ├── constants.ts  # App-wide constants (routes, defaults)
+│   │   │   ├── api.ts        # All API clients (products, orders, reviews, wishlist, notifications…)
+│   │   │   ├── auth-context.tsx  # AuthProvider + useAuthContext (global auth state)
+│   │   │   ├── constants.ts  # App-wide constants
 │   │   │   └── utils.ts      # cn(), formatPrice(), debounce()
 │   │   └── types/
-│   │       └── index.ts      # Shared TypeScript interfaces (Product, User, Order…)
+│   │       └── index.ts      # Shared TypeScript interfaces (Product, User, Order, Review…)
 │   ├── next.config.js
 │   ├── tailwind.config.ts
 │   ├── tsconfig.json
@@ -423,16 +453,17 @@ app/
 │
 └── backend/                   # NestJS 11 REST API
     ├── prisma/
-    │   └── schema.prisma      # 18 models, 9 enums (PostgreSQL)
+    │   └── schema.prisma      # 27 models, 9 enums (PostgreSQL)
     ├── src/
     │   ├── main.ts            # Bootstrap: helmet, CORS, Swagger, ValidationPipe
     │   ├── app.module.ts      # Root module (imports all feature modules)
-    │   ├── auth/              # JWT + Local auth strategies, guards, decorators
-    │   │   ├── auth.controller.ts   # POST /auth/sign-in, sign-up, GET /auth/me
-    │   │   ├── auth.service.ts
+    │   ├── auth/              # JWT auth, refresh tokens, password reset, email verification
+    │   │   ├── auth.controller.ts   # POST signup/signin/refresh/signout/forgot-password/reset-password/verify-email
+    │   │   ├── auth.service.ts      # Refresh token rotation (30d), bcrypt, password reset (24h)
     │   │   ├── auth.module.ts
+    │   │   ├── auth.service.spec.ts # Unit tests (7 passing)
     │   │   ├── strategies/
-    │   │   │   ├── jwt.strategy.ts   # Throws if JWT_SECRET missing
+    │   │   │   ├── jwt.strategy.ts
     │   │   │   └── local.strategy.ts
     │   │   ├── guards/
     │   │   │   ├── jwt-auth.guard.ts
@@ -444,14 +475,19 @@ app/
     │   ├── categories/        # Category tree
     │   ├── brands/            # Brand management
     │   ├── orders/            # Order placement (server-side pricing), status tracking
+    │   ├── reviews/           # Product reviews + automatic rating aggregation
+    │   ├── wishlist/          # Per-user wishlist (add/remove/check/clear)
+    │   ├── notifications/     # In-app notifications with mark-read
     │   ├── affiliates/        # Affiliate accounts and links
     │   ├── coupons/           # Coupon CRUD + authenticated validation
     │   ├── pricing/           # Rule-based pricing engine (%, fixed, per-marketplace)
     │   ├── banners/           # Promotional banner management
     │   ├── analytics/         # Revenue, orders, user KPIs
+    │   ├── payments/          # Stripe payment intents, confirm, webhook handler
+    │   ├── email/             # Resend transactional email (order, shipping, password reset)
     │   ├── ai/                # OpenAI gpt-4o-mini content generation
     │   ├── builder/           # AI-powered store suggestion engine
-    │   ├── proxy/             # Marketplace proxy (AliExpress, Temu, Amazon, eBay)
+    │   ├── proxy/             # Marketplace proxy (AliExpress, Temu, Amazon, eBay, Lazada)
     │   │   └── adapters/      # Per-marketplace adapter pattern
     │   ├── workers/           # BullMQ job processors (5 queues)
     │   ├── prisma/            # PrismaService (singleton)
@@ -531,11 +567,18 @@ cp backend/.env.example backend/.env
 |----------|----------|-------------|
 | `DATABASE_URL` | ✅ | PostgreSQL connection string |
 | `JWT_SECRET` | ✅ | **Strong random secret** — app won't start without this |
-| `JWT_EXPIRES_IN` | ✅ | Token TTL (e.g. `7d`, `24h`) |
+| `JWT_EXPIRES_IN` | ✅ | Access token TTL (e.g. `15m`, `1h`) |
+| `JWT_REFRESH_SECRET` | ✅ | Separate secret for refresh tokens |
+| `JWT_REFRESH_EXPIRES_IN` | ✅ | Refresh token TTL (default `30d`) |
 | `REDIS_URL` | ✅ | Redis connection string for BullMQ queues |
 | `PORT` | ✅ | API server port (default `3001`) |
 | `NODE_ENV` | ✅ | `development` / `production` / `test` |
+| `FRONTEND_URL` | ✅ | Production frontend URL — used in CORS and email links |
 | `OPENAI_API_KEY` | ⬜ | Required for AI Builder and AI Analytics |
+| `STRIPE_SECRET_KEY` | ⬜ | Stripe server-side secret key |
+| `STRIPE_WEBHOOK_SECRET` | ⬜ | Stripe webhook signing secret |
+| `RESEND_API_KEY` | ⬜ | Resend transactional email API key |
+| `RESEND_FROM_EMAIL` | ⬜ | Sender address (e.g. `noreply@yourdomain.com`) |
 | `TEMU_API_KEY` | ⬜ | Temu marketplace adapter |
 | `ALIEXPRESS_APP_KEY` | ⬜ | AliExpress Open Platform App Key |
 | `ALIEXPRESS_APP_SECRET` | ⬜ | AliExpress Open Platform App Secret |
@@ -543,13 +586,16 @@ cp backend/.env.example backend/.env
 | `AMAZON_SECRET_KEY` | ⬜ | Amazon PAAPI5 secret |
 | `AMAZON_PARTNER_TAG` | ⬜ | Amazon Associates tag |
 | `EBAY_APP_ID` | ⬜ | eBay Developer App ID |
-| `FRONTEND_URL` | ⬜ | Production frontend URL for CORS (localhost allowed in dev) |
+| `LAZADA_APP_KEY` | ⬜ | Lazada Open Platform App Key |
+| `LAZADA_APP_SECRET` | ⬜ | Lazada Open Platform App Secret |
 
 #### Frontend (`frontend/.env.local`)
 
 ```bash
 # frontend/.env.local
 NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
 ```
 
 ### Frontend Setup
@@ -688,9 +734,14 @@ Swagger UI is available at **`http://localhost:3001/api/docs`** when the backend
 
 | Endpoint | Method | Auth | Description |
 |----------|--------|------|-------------|
-| `/auth/sign-up` | `POST` | Public | Register a new user |
-| `/auth/sign-in` | `POST` | Public | Get JWT access token |
+| `/auth/signup` | `POST` | Public | Register a new user |
+| `/auth/signin` | `POST` | Public | Get JWT access + refresh tokens |
 | `/auth/me` | `GET` | JWT | Get current user profile |
+| `/auth/refresh` | `POST` | Public | Rotate refresh token → new access + refresh tokens |
+| `/auth/signout` | `POST` | JWT | Invalidate refresh token |
+| `/auth/forgot-password` | `POST` | Public | Request password-reset email |
+| `/auth/reset-password` | `POST` | Public | Reset password using token |
+| `/auth/verify-email` | `POST` | Public | Verify email address using token |
 
 ### Users
 
@@ -736,7 +787,39 @@ Swagger UI is available at **`http://localhost:3001/api/docs`** when the backend
 | `/proxy/search` | `GET` | JWT | Search products on a marketplace |
 | `/proxy/products/:marketplace/:id` | `GET` | JWT | Get product from marketplace |
 
-### Automation (Admin)
+### Reviews
+
+| Endpoint | Method | Auth | Description |
+|----------|--------|------|-------------|
+| `/reviews/product/:productId` | `GET` | Public | List reviews for a product |
+| `/reviews` | `POST` | JWT | Submit a review (one per user per product) |
+| `/reviews/:id` | `DELETE` | JWT (own) | Delete a review |
+| `/reviews/:id/helpful` | `POST` | Public | Mark review as helpful |
+
+### Wishlist
+
+| Endpoint | Method | Auth | Description |
+|----------|--------|------|-------------|
+| `/wishlist` | `GET` | JWT | Get current user's wishlist |
+| `/wishlist/items` | `POST` | JWT | Add product to wishlist |
+| `/wishlist/items/:productId` | `DELETE` | JWT | Remove product from wishlist |
+| `/wishlist/check/:productId` | `GET` | JWT | Check if product is wishlisted |
+
+### Notifications
+
+| Endpoint | Method | Auth | Description |
+|----------|--------|------|-------------|
+| `/notifications` | `GET` | JWT | List notifications for current user |
+| `/notifications/:id/read` | `PATCH` | JWT | Mark notification as read |
+| `/notifications/read-all` | `PATCH` | JWT | Mark all notifications as read |
+
+### Payments (Stripe)
+
+| Endpoint | Method | Auth | Description |
+|----------|--------|------|-------------|
+| `/payments/create-intent/:orderId` | `POST` | JWT | Create a Stripe payment intent |
+| `/payments/confirm/:paymentIntentId` | `POST` | JWT | Confirm payment and update order |
+| `/payments/webhook` | `POST` | Public (signature) | Stripe webhook handler |
 
 | Endpoint | Method | Auth | Description |
 |----------|--------|------|-------------|
@@ -795,13 +878,16 @@ This project follows secure-by-default patterns:
 | Area | Protection |
 |------|-----------|
 | JWT Secret | App throws at startup if `JWT_SECRET` env var is not set — no weak fallback |
+| Refresh Tokens | DB-stored, single-use (rotated on every refresh), 30-day expiry, wiped on password reset |
 | Auth | All non-public endpoints require a valid JWT (`JwtAuthGuard`) |
 | Authorization | Ownership checks on user profiles and orders; admin-only endpoints protected by `RolesGuard` |
 | Privilege Escalation | `role` field removed from `UpdateUserDto` — role changes require a separate admin-only endpoint |
 | Price Manipulation | Client cannot supply item prices; server always looks up authoritative price from the database |
 | Coupon Enumeration | `GET /coupons/validate` requires authentication to prevent brute-force enumeration |
 | Open Proxy | Marketplace proxy endpoints require JWT to prevent API key abuse |
+| Rate Limiting | Global `ThrottlerGuard` — 60 requests per 60 seconds per IP |
 | CORS | `localhost` origins allowed only outside production; production requires explicit `FRONTEND_URL` |
+| Stripe Webhooks | Signature verified via `stripe.webhooks.constructEvent` before any order updates |
 | Dependencies | `next` ≥ 15.5.12, `serialize-javascript` ≥ 7.0.3, `axios` ≥ 1.13.5, `@nestjs/*` ≥ 11 |
 
 **Reporting a vulnerability:** Please open a private security advisory via GitHub rather than a public issue.

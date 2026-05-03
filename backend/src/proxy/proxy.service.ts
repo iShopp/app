@@ -3,6 +3,7 @@ import { TemuAdapter } from './adapters/temu.adapter';
 import { AliexpressAdapter } from './adapters/aliexpress.adapter';
 import { AmazonAdapter } from './adapters/amazon.adapter';
 import { EbayAdapter } from './adapters/ebay.adapter';
+import { LazadaAdapter } from './adapters/lazada.adapter';
 import {
   BaseMarketplaceAdapter,
   MarketplaceSearchOptions,
@@ -19,12 +20,14 @@ export class ProxyService {
     private aliexpressAdapter: AliexpressAdapter,
     private amazonAdapter: AmazonAdapter,
     private ebayAdapter: EbayAdapter,
+    private lazadaAdapter: LazadaAdapter,
   ) {
     this.adapters = {
       temu: temuAdapter,
       aliexpress: aliexpressAdapter,
       amazon: amazonAdapter,
       ebay: ebayAdapter,
+      lazada: lazadaAdapter,
     };
   }
 

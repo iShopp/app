@@ -15,7 +15,7 @@ export interface Product {
   reviewCount: number;
   inStock: boolean;
   stockCount?: number;
-  marketplace: 'temu' | 'aliexpress' | 'amazon' | 'ebay' | 'manual';
+  marketplace: 'temu' | 'aliexpress' | 'amazon' | 'ebay' | 'lazada' | 'manual';
   marketplaceUrl?: string;
   variants?: ProductVariant[];
   tags?: string[];
@@ -39,6 +39,27 @@ export interface ProductVariant {
 export interface FAQ {
   question: string;
   answer: string;
+}
+
+export interface Review {
+  id: string;
+  rating: number;
+  title?: string;
+  comment: string;
+  verified: boolean;
+  helpful: number;
+  user: { id: string; name: string; avatar?: string };
+  createdAt: string;
+}
+
+export interface Notification {
+  id: string;
+  type: string;
+  title: string;
+  message: string;
+  read: boolean;
+  metadata?: Record<string, unknown>;
+  createdAt: string;
 }
 
 export interface Category {

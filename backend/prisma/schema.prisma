@@ -23,6 +23,7 @@ enum Marketplace {
   ALIEXPRESS
   AMAZON
   EBAY
+  LAZADA
   MANUAL
 }
 
@@ -120,6 +121,12 @@ model User {
   addresses Address[]
   orders    Order[]
   affiliate Affiliate?
+  reviews             Review[]
+  wishlist            Wishlist?
+  refreshTokens       RefreshToken[]
+  passwordResets      PasswordReset[]
+  emailVerification   EmailVerification?
+  notifications       Notification[]
 }
 
 model Address {
@@ -202,6 +209,8 @@ model Product {
   variants    ProductVariant[]
   faqs        ProductFAQ[]
   orderItems  OrderItem[]
+  reviews     Review[]
+  wishlistItems WishlistItem[]
 }
 
 model ProductVariant {
@@ -293,6 +302,7 @@ model Affiliate {
   user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   links AffiliateLink[]
+  payoutRequests PayoutRequest[]
 }
 
 model AffiliateLink {
@@ -391,3 +401,125 @@ model MarketplaceIntegration {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 }
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  title     String?
+  comment   String
+  verified  Boolean  @default(false)
+  helpful   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, userId])
+}
+
+model Wishlist {
+  id        String         @id @default(cuid())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  userId    String         @unique
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  items     WishlistItem[]
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  addedAt    DateTime @default(now())
+
+  wishlistId String
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, productId])
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EmailVerification {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PayoutRequest {
+  id          String    @id @default(cuid())
+  amount      Float
+  status      String    @default("pending")
+  method      String    @default("bank")
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  affiliateId String
+  affiliate   Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+}
+
+model EmailTemplate {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  subject   String
+  body      String   @db.Text
+  variables String[]
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  type      String   @default("string")
+  group     String   @default("general")
+  updatedAt DateTime @updatedAt
+}
+
