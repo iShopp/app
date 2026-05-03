@@ -5,6 +5,7 @@ import { TemuAdapter } from './adapters/temu.adapter';
 import { AliexpressAdapter } from './adapters/aliexpress.adapter';
 import { AmazonAdapter } from './adapters/amazon.adapter';
 import { EbayAdapter } from './adapters/ebay.adapter';
+import { LazadaAdapter } from './adapters/lazada.adapter';
 
 @Module({
   controllers: [ProxyController],
@@ -14,6 +15,7 @@ import { EbayAdapter } from './adapters/ebay.adapter';
     AliexpressAdapter,
     AmazonAdapter,
     EbayAdapter,
+    LazadaAdapter,
   ],
   exports: [ProxyService],
 })

@@ -15,6 +15,11 @@ import {
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { SignOutDto } from './dto/sign-out.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('Auth')
@@ -32,10 +37,43 @@ export class AuthController {
 
   @Post('signin')
   @ApiOperation({ summary: 'Sign in and receive JWT' })
-  @ApiResponse({ status: 200, description: 'JWT token returned' })
+  @ApiResponse({ status: 200, description: 'JWT tokens returned' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   signIn(@Body() dto: SignInDto) {
     return this.authService.signIn(dto.email, dto.password);
+  }
+
+  @Post('refresh')
+  @ApiOperation({ summary: 'Refresh access token using refresh token' })
+  @ApiResponse({ status: 200, description: 'New token pair returned' })
+  refresh(@Body() dto: RefreshTokenDto) {
+    return this.authService.refresh(dto.refresh_token);
+  }
+
+  @Post('signout')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Sign out and invalidate refresh token' })
+  signOut(@Request() req: any, @Body() dto: SignOutDto) {
+    return this.authService.signOut(req.user.id, dto.refresh_token);
+  }
+
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Request a password reset email' })
+  forgotPassword(@Body() dto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(dto.email);
+  }
+
+  @Post('reset-password')
+  @ApiOperation({ summary: 'Reset password using token from email' })
+  resetPassword(@Body() dto: ResetPasswordDto) {
+    return this.authService.resetPassword(dto.token, dto.password);
+  }
+
+  @Post('verify-email')
+  @ApiOperation({ summary: 'Verify email address using token' })
+  verifyEmail(@Body() dto: VerifyEmailDto) {
+    return this.authService.verifyEmail(dto.token);
   }
 
   @Get('me')
