@@ -1,5 +1,6 @@
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service';
@@ -13,10 +14,20 @@ describe('AuthService', () => {
       findUnique: jest.fn(),
       create: jest.fn(),
     },
+    refreshToken: {
+      create: jest.fn().mockResolvedValue({ id: 'rt-1', token: 'refresh-token' }),
+      delete: jest.fn().mockResolvedValue({}),
+      deleteMany: jest.fn().mockResolvedValue({}),
+      findUnique: jest.fn(),
+    },
   };
 
   const mockJwt = {
     sign: jest.fn().mockReturnValue('test-token'),
+  };
+
+  const mockConfig = {
+    get: jest.fn().mockReturnValue(undefined),
   };
 
   beforeEach(async () => {
@@ -25,11 +36,14 @@ describe('AuthService', () => {
         AuthService,
         { provide: PrismaService, useValue: mockPrisma },
         { provide: JwtService, useValue: mockJwt },
+        { provide: ConfigService, useValue: mockConfig },
       ],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
     jest.clearAllMocks();
+    // Re-apply default mock for refreshToken.create after clearAllMocks
+    mockPrisma.refreshToken.create.mockResolvedValue({ id: 'rt-1', token: 'refresh-token' });
   });
 
   describe('validateUser', () => {
