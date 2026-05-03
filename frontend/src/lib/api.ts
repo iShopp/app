@@ -219,3 +219,60 @@ export const builderApi = {
       body: JSON.stringify(data),
     }),
 };
+
+// Wishlist
+export const wishlistApi = {
+  get: (token: string) =>
+    fetchAPI<{ items: Array<{ id: string; productId: string; product: unknown }> }>('/wishlist', {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  add: (productId: string, token: string) =>
+    fetchAPI<void>('/wishlist/items', {
+      method: 'POST',
+      body: JSON.stringify({ productId }),
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  remove: (productId: string, token: string) =>
+    fetchAPI<void>(`/wishlist/items/${productId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  check: (productId: string, token: string) =>
+    fetchAPI<{ wishlisted: boolean }>(`/wishlist/check/${productId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+};
+
+// Reviews
+export const reviewsApi = {
+  forProduct: (productId: string, params?: Record<string, string>) =>
+    fetchAPI<Array<{ id: string; rating: number; title?: string; comment: string; user: { name: string }; createdAt: string; helpful: number }>>(
+      `/reviews/product/${productId}${params ? '?' + new URLSearchParams(params).toString() : ''}`
+    ),
+  create: (data: { productId: string; rating: number; title?: string; comment: string }, token: string) =>
+    fetchAPI<unknown>('/reviews', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  helpful: (reviewId: string) =>
+    fetchAPI<void>(`/reviews/${reviewId}/helpful`, { method: 'POST' }),
+};
+
+// Notifications
+export const notificationsApi = {
+  list: (token: string) =>
+    fetchAPI<Array<{ id: string; type: string; title: string; message: string; read: boolean; createdAt: string }>>('/notifications', {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  markRead: (id: string, token: string) =>
+    fetchAPI<void>(`/notifications/${id}/read`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  markAllRead: (token: string) =>
+    fetchAPI<void>('/notifications/read-all', {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+};

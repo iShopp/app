@@ -23,6 +23,8 @@ const config: Config = {
         'neon-flicker': 'neonFlicker 3s ease-in-out infinite',
         'slide-in': 'slideIn 0.3s ease-out',
         'fade-in': 'fadeIn 0.3s ease-out',
+        'flash-glow': 'flashGlow 2s ease-in-out infinite',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
       },
       keyframes: {
         glowPulse: {
@@ -44,6 +46,14 @@ const config: Config = {
         fadeIn: {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        flashGlow: {
+          '0%, 100%': { boxShadow: '0 0 8px rgba(249,115,22,0.3), 0 0 20px rgba(249,115,22,0.1)' },
+          '50%': { boxShadow: '0 0 20px rgba(249,115,22,0.7), 0 0 50px rgba(249,115,22,0.3)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { opacity: '1', filter: 'brightness(1)' },
+          '50%': { opacity: '0.85', filter: 'brightness(1.3)' },
         },
       },
       boxShadow: {

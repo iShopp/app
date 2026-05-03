@@ -37,6 +37,8 @@
     "compression": "^1.7.4",
     "helmet": "^7.0.0",
     "openai": "^4.0.0",
+    "resend": "^3.0.0",
+    "stripe": "^15.0.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

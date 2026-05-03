@@ -3,6 +3,8 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import MobileNav from '@/components/layout/MobileNav';
+import { AuthProvider } from '@/lib/auth-context';
+import { ToastProvider } from '@/components/ui/Toast';
 
 export const metadata: Metadata = {
   title: 'iSHOP Marketplace',
@@ -36,12 +38,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body className="bg-slate-900 text-slate-100 min-h-screen">
-        <Navbar />
-        <main className="pt-16 pb-16 md:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <MobileNav />
+        <AuthProvider>
+          <ToastProvider>
+            <Navbar />
+            <main className="pt-16 pb-16 md:pb-0">
+              {children}
+            </main>
+            <Footer />
+            <MobileNav />
+          </ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );

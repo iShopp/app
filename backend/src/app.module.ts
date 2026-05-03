@@ -22,6 +22,8 @@ import { HealthModule } from './health/health.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { WishlistModule } from './wishlist/wishlist.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { PaymentsModule } from './payments/payments.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     ReviewsModule,
     WishlistModule,
     NotificationsModule,
+    PaymentsModule,
+    EmailModule,
   ],
   providers: [
     {
